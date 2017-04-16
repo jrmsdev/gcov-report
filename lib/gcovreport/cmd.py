@@ -8,19 +8,13 @@ from . import config, parser, output, version
 def __scan_files ():
     db = list()
 
-    def gcov_append (src, gcov):
-        db.append ({
-            'src': html.escape (src.replace ('.gcov', '')),
-            'data': gcov,
-        })
-
     gcov_files = sorted (glob ('*.gcov'))
     if len (gcov_files) < 1:
         print ("no .gcov files were found")
         sys.exit (1)
 
     for src in gcov_files:
-        gcov_append (src, parser.parse_gcov (src))
+        db.append (parser.parse_gcov (src))
 
     return db
 

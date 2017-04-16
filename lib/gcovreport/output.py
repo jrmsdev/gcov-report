@@ -59,8 +59,7 @@ def write_index (gcovdb):
 
     with open (dst, 'a') as fh:
 
-        for i in gcovdb:
-            gcov = i['data']
+        for gcov in gcovdb:
             percent_total += gcov.get ('attr.__percent_ok', 0)
         total_ok = (percent_total * 100) / total_expect
 
@@ -76,12 +75,12 @@ def write_index (gcovdb):
 
         print (tmpl.TMPL_FILE_INDEX_START, file = fh)
 
-        for i in gcovdb:
-            gcov_src = i['src']
-            gcov = i['data']
+        for gcov in gcovdb:
+            attr_src = gcov.get ('attr.source')
 
             print (tmpl.TMPL_FILE_INDEX_STATUS.format (
-                    file_href = tmpl.html_link (gcov_src, gcov_src),
+                    source = attr_src,
+                    file_href = tmpl.html_link (path.basename (attr_src), '>>'),
                     status_info = gcov.get ('attr.status.info', None),
                     status = gcov.get ('attr.status', None)), file = fh)
 

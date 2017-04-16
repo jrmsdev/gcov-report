@@ -11,3 +11,4 @@ python:
         - gcov --version
     script:
         - make check GCOV=gcov
+        - make check-coverage GCOV=gcov

@@ -42,5 +42,20 @@ gcovhtml:
 
 .PHONY: clean
 clean:
-	@rm -vf *.test *.run *.gcda *.gcno *.gcov
-	@rm -vrf gcovhtml
+	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage
+	@rm -vrf gcovhtml htmlcov
+
+
+.PHONY: check-coverage
+check-coverage: check
+	test -x ../venv/bin/coverage
+	@rm -rf gcovhtml
+	@mkdir -p gcovhtml
+	@../venv/bin/coverage run ../bin/gcov-report.py --test-mode
+	@../venv/bin/coverage report
+
+
+.PHONY: htmlcov
+htmlcov:
+	test -x ../venv/bin/coverage
+	../venv/bin/coverage html

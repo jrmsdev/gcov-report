@@ -4,3 +4,5 @@ t???_*.gcno
 t???_*.gcda
 t???_*.c.gcov
 gcovhtml/*
+.coverage
+htmlcov/*

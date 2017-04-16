@@ -47,3 +47,13 @@ venv:
 	@$(PYCMD) -m venv --clear --symlinks venv
 	@./venv/bin/pip check
 	@./venv/bin/pip install coverage
+
+
+.PHONY: check-coverage
+check-coverage: build venv
+	@$(MAKE) -C tests check-coverage
+
+
+.PHONY: distclean
+distclean: clean
+	@rm -vrf venv

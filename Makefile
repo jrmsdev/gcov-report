@@ -25,7 +25,7 @@ installdirs:
 .PHONY: install
 install: build installdirs
 	@$(INSTALL_EXE) bin/gcov-report.py $(DEST_BINDIR)/gcov-report
-	@$(INSTALL_F) lib/gcovreport/*.py $(DEST_LIBDIR)/
+	@$(INSTALL_F) lib/gcovreport/*.py $(DEST_LIBDIR)
 	@$(INSTALL_F) lib/gcovreport/__pycache__/*.pyc $(DEST_LIBDIR)/__pycache__
 	@$(INSTALL_F) LICENSE $(DEST_LICDIR)
 

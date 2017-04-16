@@ -1,20 +1,13 @@
 stages:
    - build
 
-gcc:
-    stage: build
-    only:
-        - next
-    image: gcc
-    before_script:
-        - apt-get update && apt-get install -y --no-install-recommend python3
-    script:
-        - make check GCOV=gcov
-
 python:
     stage: build
     only:
         - next
     image: python
+    before_script:
+        - gcc --version
+        - gcov --version
     script:
         - make check GCOV=gcov

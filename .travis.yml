@@ -1,0 +1,16 @@
+language: c
+
+branches:
+    only:
+        - next
+
+os: linux
+
+sudo: false
+
+dist: trusty
+
+compiler: gcc
+
+script:
+    - make check

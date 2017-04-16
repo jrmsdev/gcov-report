@@ -13,4 +13,4 @@ dist: trusty
 compiler: gcc
 
 script:
-    - make check
+    - make check GCOV=gcov

@@ -6,5 +6,15 @@ gcc:
     only:
         - next
     image: gcc
+    before_script:
+        - apt-get update && apt-get install -y --no-install-recommend python3
+    script:
+        - make check
+
+python:
+    stage: build
+    only:
+        - next
+    image: python
     script:
         - make check

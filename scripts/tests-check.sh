@@ -2,6 +2,11 @@
 
 DIFF_CMD=${DIFF_CMD:-'diff'}
 DIFF_ARGS=${DIFF_ARGS:-'-u'}
+COVCMD=${COVERAGE_CMD:-''}
+
+if test "x${COVCMD}" != "x"; then
+    COVCMD="${COVCMD} --append"
+fi
 
 test_dir=gcovhtml
 expect_dir=expect
@@ -61,7 +66,8 @@ __shrun_exec() {
         shrun_test=${shrun_dir}/${n}.test
         shrun_exe=${shrun_dir}/${n}.sh
         if test -x $shrun_exe; then
-            ./$shrun_exe >$shrun_test
+            echo "SHRUN ./venv/bin/coverage run --append $shrun_exe $shrun_test"
+            COVERAGE_CMD="${COVCMD}" ./$shrun_exe >$shrun_test
         fi
     done
 }

@@ -1,0 +1,2 @@
+GCOV_REPORT: ../bin/gcov-report.py
+gcov-report.py vTEST_MODE:version.get_string

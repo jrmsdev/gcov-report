@@ -3,22 +3,21 @@ CFLAGS := -Wall -Wextra -pedantic -O0 -fprofile-arcs -ftest-coverage
 GCOV := gcov5
 TESTS != ls t???_*.c | sed 's/\.c/\.test/'
 TESTS_RUN != ls t???_*.c | sed 's/\.c/\.run/'
+COVERAGE_CMD ?=
 
 
 .PHONY: check
 check: build tests-run
 	@CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
-	@$(MAKE) gcovhtml
 	@../bin/gcov-report.py --version
-	@../scripts/tests-check.sh
+	@$(MAKE) gcovhtml COVERAGE_CMD='$(COVERAGE_CMD)'
+	@COVERAGE_CMD='$(COVERAGE_CMD)' ../scripts/tests-check.sh
 
 
 .PHONY: check-coverage
-check-coverage: build tests-run
+check-coverage:
 	test -x ../venv/bin/coverage
-	@rm -rf gcovhtml
-	@mkdir -p gcovhtml
-	@../venv/bin/coverage run ../bin/gcov-report.py --test-mode
+	@$(MAKE) check COVERAGE_CMD='../venv/bin/coverage run'
 	@../venv/bin/coverage report
 
 
@@ -46,7 +45,7 @@ tests-run: $(TESTS_RUN)
 gcovhtml:
 	@rm -rf gcovhtml
 	@mkdir -p gcovhtml
-	@../bin/gcov-report.py --test-mode
+	@$(COVERAGE_CMD) ../bin/gcov-report.py --test-mode
 
 
 .PHONY: clean

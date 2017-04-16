@@ -17,6 +17,7 @@ check: build tests-run
 .PHONY: check-coverage
 check-coverage:
 	test -x ../venv/bin/coverage
+	@rm -f .coverage
 	@$(MAKE) check COVERAGE_CMD='../venv/bin/coverage run'
 	@../venv/bin/coverage report
 

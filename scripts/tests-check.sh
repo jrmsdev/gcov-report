@@ -66,7 +66,6 @@ __shrun_exec() {
         shrun_test=${shrun_dir}/${n}.test
         shrun_exe=${shrun_dir}/${n}.sh
         if test -x $shrun_exe; then
-            echo "SHRUN ./venv/bin/coverage run --append $shrun_exe $shrun_test"
             COVERAGE_CMD="${COVCMD}" ./$shrun_exe >$shrun_test
         fi
     done

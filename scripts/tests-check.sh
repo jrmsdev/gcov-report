@@ -41,6 +41,13 @@ __check_diff() {
     return 0
 }
 
+__check_html_files_list() {
+    (cd $test_dir && ls *.html 2>/dev/null | sort) >$test_list
+    (cd $expect_dir && ls *.html 2>/dev/null | sort) >$expect_list
+    __run_diff $expect_list $test_list >${test_list}.diff 2>${test_list}.diff
+    __check_diff ${test_list}.diff
+}
+
 test -d ${test_dir} || {
     __error "${test_dir} dir not found"
     exit 1
@@ -55,11 +62,7 @@ which $DIFF_CMD >/dev/null 2>/dev/null || {
     exit 3
 }
 
-(cd $test_dir && ls *.html 2>/dev/null | sort) >$test_list
-(cd $expect_dir && ls *.html 2>/dev/null | sort) >$expect_list
-
-__run_diff $expect_list $test_list >${test_list}.diff 2>${test_list}.diff
-__check_diff ${test_list}.diff
+__check_html_files_list
 
 for n in $(cat ${test_list}); do
     tfile=${test_dir}/${n}

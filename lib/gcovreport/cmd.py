@@ -26,7 +26,9 @@ def __pre_checks ():
 
 
 def __usage (appname): # pragma: no cover
-    print ("%s [-V|--version] [-h|--help]" % appname)
+    print ("{} [-V|--version] [-h|--help] [options]".format (appname))
+    print ("Options:")
+    print ("  --htmldir={}".format (config.htmldir))
 
 
 def __parse_argv (argv):
@@ -46,13 +48,19 @@ def __parse_argv (argv):
             flags['help'] = True
         elif a == '--test-mode':
             config.test_mode = True
+        elif a.startswith ('--htmldir='):
+            v = a.split ('=')[1].strip ()
+            if v == "":
+                flags_invalid.append (a)
+            else:
+                config.htmldir = v
         else:
             flags_invalid.append (a)
     if len (flags_invalid) > 0:
         __usage (appname)
-        print ("invalid args:")
+        print ("Invalid args:")
         for a in flags_invalid:
-            print (" ", a)
+            print ("  '%s'" % a)
         sys.exit (3)
     if flags['printv']:
         version.printv (appname = appname)

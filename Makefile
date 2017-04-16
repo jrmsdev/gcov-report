@@ -44,7 +44,7 @@ check: build
 
 .PHONY: venv
 venv:
-	@$(PYCMD) -m venv --clear --symlinks venv
+	@$(PYCMD) -m venv --symlinks venv
 	@./venv/bin/pip check
 	@./venv/bin/pip install coverage
 

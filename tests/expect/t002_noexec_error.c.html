@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+    body {
+        background-color: #000000;
+        color: #666666;
+        font-family: monospace;
+        font-size: 1.2em;
+        padding: 1em 1em;
+        margin: 0;
+        line-height: 1.3em;
+    }
+    a {
+        color: #0000cc;
+    }
+    span.noexec {
+        color: #cc0000;
+    }
+    span.exec {
+        color: #00ee00;
+    }
+    span.normal {
+        color: #008800;
+    }
+    span.info {
+        color: #aa00bb;
+    }
+    footer {
+        font-size: 0.7em;
+        line-height: 1.1em;
+    }
+    footer a {
+        color: #666666;
+    }
+    div.navbar {
+        margin-bottom: 1em;
+    }
+    .status {
+        font-size: 0.7em;
+    }
+    .status_error {
+        color: #cc0000;
+    }
+    .status_info {
+        color: #00cccc;
+    }
+    .status_warn {
+        color: #cccc33;
+    }
+    .status_ok {
+        color: #00cc00;
+    }
+    .filename {
+        color: #cccccc;
+    }
+    li.index_entry {
+        margin-bottom: 0.3em;
+    }
+    </style>
+    <title>gcov-report - t002_noexec_error.c 65.00% done</title>
+</head>
+<body>
+<div class="div_gcov">
+<div class="navbar"><a href="./index.html"><b>index</b></a></div>
+<p>
+
+<span class="status_normal">gcov: t002_noexec_error.c.gcov</span><br>
+
+<span class="status_normal">runs: 1</span><br>
+
+<span class="status_info">source: t002_noexec_error.c</span><br>
+
+<span class="status_normal">source.lines: 20</span><br>
+
+<span class="status_normal">source.lines.exec: 6</span><br>
+
+<span class="status_error">source.lines.noexec: 7</span><br>
+
+<span class="status_normal">source.lines.normal: 7</span><br>
+
+<span class="status_error">status: error</span><br>
+
+<span class="status_error">status.info: 65.00%</span><br>
+
+</p>
+<pre>
+<span class="status info">function check_val called 1 returned 100% blocks executed 30%</span>
+<span class="exec">   1: static int check_val (int v)</span>
+<span class="normal">   2: {</span>
+<span class="exec">   3:     if (v == 0)</span>
+<span class="status info">branch  0 taken 100% (fallthrough)</span>
+<span class="status info">branch  1 taken 0%</span>
+<span class="exec">   4:         return (0);</span>
+<span class="noexec">   5:     else if (v == 1)</span>
+<span class="status info">branch  0 never executed</span>
+<span class="status info">branch  1 never executed</span>
+<span class="noexec">   6:         return (1);</span>
+<span class="noexec">   7:     else if (v == 2)</span>
+<span class="status info">branch  0 never executed</span>
+<span class="status info">branch  1 never executed</span>
+<span class="noexec">   8:         return (2);</span>
+<span class="noexec">   9:     else if (v == 3)</span>
+<span class="status info">branch  0 never executed</span>
+<span class="status info">branch  1 never executed</span>
+<span class="noexec">  10:         return (3);</span>
+<span class="normal">  11:     else</span>
+<span class="noexec">  12:         return (9);</span>
+<span class="normal">  13: }</span>
+<span class="normal">  14: </span>
+<span class="normal">  15: int</span>
+<span class="status info">function main called 1 returned 100% blocks executed 100%</span>
+<span class="exec">  16: main (void)</span>
+<span class="normal">  17: {</span>
+<span class="exec">  18:     check_val (0);</span>
+<span class="status info">call    0 returned 100%</span>
+<span class="exec">  19:     return (0);</span>
+<span class="normal">  20: }</span>
+</pre>
+</div>
+<footer>
+t002_noexec_error.c.html: TEST_MODE:utils.asctime<br>
+<a target="_blank"
+   href="TEST_MODE:version.project_url">gcov-report</a> vTEST_MODE:version.get_string
+</footer>
+</body>
+</html>

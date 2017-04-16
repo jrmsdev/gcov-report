@@ -114,7 +114,8 @@ for t in $(ls t???_*.c 2>/dev/null); do
     echo "${test_dir}/$(basename $t .c)" >>$run_list
 done
 
-ls ${shrun_dir}/*.test 2>/dev/null | sed 's/\.test//' >>$run_list
+ls ${shrun_dir}/t???_*.sh 2>/dev/null | sed 's/\.sh//' >>$run_list
+
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}
 

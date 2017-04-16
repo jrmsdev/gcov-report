@@ -40,7 +40,7 @@ def parse_gcov (src):
             attr['status.percent_ok'] = 0
         else:
             percent_ok = ((lines_normal + lines_exec) * 100) / lines
-            attr['status.info'] = "done: {:>6.2f}%".format (percent_ok)
+            attr['status.info'] = "{:.2f}%".format (percent_ok)
             if percent_ok <= config.percent_error:
                 attr['status'] = 'error'
             elif percent_ok <= config.percent_warn:

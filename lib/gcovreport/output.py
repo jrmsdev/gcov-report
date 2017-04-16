@@ -4,10 +4,11 @@ from os import path
 from . import tmpl, config, version
 
 
-def write_html_head (out_f, title, main_class = "none"):
+def write_html_head (out_f, title, div_class):
     with open (out_f, 'w') as fh:
-        print (tmpl.TMPL_HEAD.format (title = title, css = tmpl.CSS,
-                main_class = main_class), file = fh)
+        print (tmpl.TMPL_HEAD.format (title = title,
+                css = tmpl.CSS), file = fh)
+        print (tmpl.TMPL_DIV_START.format (div_class = div_class), file = fh)
         fh.flush ()
         fh.close ()
 
@@ -19,6 +20,7 @@ def write_html_tail (out_f):
         'doc_update': time.asctime (),
     }
     with open (out_f, 'a') as fh:
+        print (tmpl.TMPL_DIV_END, file = fh)
         print (tmpl.TMPL_TAIL.format (**fmt), file = fh)
         fh.flush ()
         fh.close ()
@@ -27,7 +29,7 @@ def write_html_tail (out_f):
 def write_gcov_html (src, dst, gcov):
     title = '%s %.2f%% done' % \
             (gcov.get ('attr.source'), gcov.get ('attr.__percent_ok'))
-    write_html_head (dst, title)
+    write_html_head (dst, title, 'gcov')
     with open (dst, 'a') as fh:
 
         print (tmpl.html_navbar (), file = fh)
@@ -57,37 +59,25 @@ def write_index (gcovdb):
             gcov = i['data']
             percent_total += gcov.get ('attr.__percent_ok', 0)
         total_ok = (percent_total * 100) / total_expect
+
         if total_ok <= config.percent_error:
             total_status = 'error'
         elif total_ok <= config.percent_warn:
             total_status = 'warn'
 
-        write_html_head (dst, '%.2f%% done' % total_ok,
-                main_class = 'index')
+        write_html_head (dst, '%.2f%% done' % total_ok, 'index')
 
-        print (tmpl.TMPL_GLOBAL_STATUS.format (
+        print (tmpl.TMPL_GLOBAL_STATUS.format (filesno = gcov_count,
                 percent = total_ok, status = total_status), file = fh)
-        print ("scanned files:", gcov_count, file = fh)
 
         for i in gcovdb:
             gcov_src = i['src']
             gcov = i['data']
 
-            status = gcov.get ('attr.status', None)
             print (tmpl.TMPL_FILE_INDEX_STATUS.format (
-                    sep = 7 - len (status),
-                    sep_char = ' ',
-                    status = status), file = fh, end = '')
-
-            seplen = (50 - len (gcov_src))
-            if seplen < 0:
-                seplen = 0
-            print (tmpl.TMPL_FILE_INDEX.format (
-                    status = status,
+                    file_href = tmpl.html_link (gcov_src, gcov_src),
                     status_info = gcov.get ('attr.status.info', None),
-                    sep = seplen,
-                    sep_char = ' ',
-                    file_href = tmpl.html_link (gcov_src, gcov_src)), file = fh)
+                    status = gcov.get ('attr.status', None)), file = fh)
 
         fh.flush ()
         fh.close ()

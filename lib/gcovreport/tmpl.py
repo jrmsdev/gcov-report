@@ -27,9 +27,6 @@ CSS = '''<style>
     code.info {
         color: #aa00bb;
     }
-    pre.index {
-        line-height: 1.5em;
-    }
     footer {
         font-size: 11px;
         line-height: 1.1em;
@@ -54,11 +51,9 @@ TMPL_HEAD = '''<!doctype html>
     {css}
     <title>gcov-report - {title}</title>
 </head>
-<body>
-<pre class="{main_class}">'''
+<body>'''
 
-TMPL_TAIL = '''</pre>
-<footer>
+TMPL_TAIL = '''<footer>
 {doc_name}: {doc_update}<br>
 gcov-report v{appversion}
 </footer>
@@ -77,11 +72,19 @@ TMPL_GCOV_ATTRIB = '<small class="status_{attr_class}">{attr_key}: {attr_val}</s
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
-TMPL_FILE_INDEX_STATUS = '{sep_char:{sep}}<span class="status_{status}">{status}</span> '
+TMPL_FILE_INDEX_STATUS = '''
+{file_href} <span class="status_{status}">
+<small>{status_info} done</small></span><br>
+'''
 
-TMPL_FILE_INDEX = '{file_href}{sep_char:{sep}} <span class="status_{status}">{status_info}</span>'
+TMPL_GLOBAL_STATUS = '''
+global status: <span class="status_{status}">{percent:.2f}% done</span><br>
+scanned files: {filesno}<br>
+'''
 
-TMPL_GLOBAL_STATUS = 'global status: <span class="status_{status}">{percent:.2f}% done</span>'
+TMPL_DIV_START = '<div class="div_{div_class}"><p>'
+
+TMPL_DIV_END = '</p></div>'
 
 #
 # -- html helpers
@@ -106,7 +109,6 @@ def html_gcov_attribs (src, gcov):
                 attr_found = True
                 s = TMPL_GCOV_ATTRIB.format (
                         attr_class = atclass, attr_key = 'gcov', attr_val = src)
-                s += "\n"
             try:
                 kn = '.'.join (k.split ('.')[1:])
                 kv = gcov.get ('attr.' + kn, None)
@@ -129,8 +131,7 @@ def html_gcov_attribs (src, gcov):
 
                 s += TMPL_GCOV_ATTRIB.format (
                         attr_class = atclass, attr_key = kn, attr_val = kv)
-                s += "\n"
             except IndexError as e:
                 print ("gcov_attribs:", src, "IndexError:", str (e))
 
-    return s + "\n"
+    return s

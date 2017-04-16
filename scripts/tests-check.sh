@@ -58,7 +58,7 @@ __check_html_files_list() {
 __shrun_exec() {
     for s in ${shrun_dir}/t???_*.sh; do
         n=`basename $s .sh`
-        shrun_test=${n}.shrun
+        shrun_test=${shrun_dir}/${n}.shrun
         shrun_exe=${shrun_dir}/${n}.sh
         if test -x $shrun_exe; then
             ./$shrun_exe >$shrun_test
@@ -110,7 +110,7 @@ __check_html_files_list
 
 run_list=${test_dir}/run_list
 ls *.run 2>/dev/null | sed 's/\.run//' >$run_list
-ls *.shrun 2>/dev/null | sed 's/\.shrun//' >>$run_list
+ls ${shrun_dir}/*.shrun 2>/dev/null | sed 's/\.shrun//' >>$run_list
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}
 
@@ -120,7 +120,7 @@ for n in $(cat ${run_list}); do
     run_expect=${expect_dir}/${n}.c.html
     shrun_diff=${n}.diff
     shrun_test=${n}.shrun
-    shrun_expect=${expect_dir}/${n}.shrun
+    shrun_expect=${n}.expect
     if test -s $run_test; then
         #~ echo "RUN"
         __run_check $run_expect $run_test $run_diff

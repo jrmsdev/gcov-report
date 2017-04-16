@@ -1,4 +1,6 @@
 import time
+from os import path
+
 from . import tmpl, config
 
 
@@ -19,28 +21,6 @@ def write_html_tail (out_f):
         print (tmpl.TMPL_TAIL.format (**fmt), file = fh)
         fh.flush ()
         fh.close ()
-
-
-def write_summary (funcs, files):
-    dst = os.path.join (config.htmldir, 'summary.html')
-
-    def files_info (fh):
-        print ("files:", len (files), file = fh)
-        idx = 0
-        for i in files:
-            idx += 1
-            i['idx'] = idx
-            line = tmpl.TMPL_FILE_SUMM.format(**i)
-            print (line, file = fh)
-
-    write_html_head (dst, 'gcov run summary');
-
-    with open (dst, 'a') as fh:
-        files_info (fh)
-        fh.flush ()
-        fh.close ()
-
-    write_html_tail (dst);
 
 
 def write_gcov_html (src, dst, gcov):
@@ -67,7 +47,7 @@ def write_index (gcovdb):
     total_expect = 100 * gcov_count
     total_ok = 0
     total_status = 'ok'
-    dst = os.path.join (config.htmldir, 'index.html')
+    dst = path.join (config.htmldir, 'index.html')
 
 
     with open (dst, 'a') as fh:
@@ -76,9 +56,9 @@ def write_index (gcovdb):
             gcov = i['data']
             percent_total += gcov.get ('attr.__percent_ok', 0)
         total_ok = (percent_total * 100) / total_expect
-        if total_ok <= PERCENT_ERROR:
+        if total_ok <= config.percent_error:
             total_status = 'error'
-        elif total_ok <= PERCENT_WARN:
+        elif total_ok <= config.percent_warn:
             total_status = 'warn'
 
         write_html_head (dst, '%.2f%% done' % total_ok,

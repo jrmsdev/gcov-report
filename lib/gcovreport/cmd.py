@@ -2,7 +2,7 @@ import sys
 import html
 from os import path
 from glob import glob
-from . import config, parser
+from . import config, parser, output
 
 
 def __scan_files ():
@@ -16,7 +16,6 @@ def __scan_files ():
 
     for src in sorted (glob ('*.gcov')):
         gcov_append (src, parser.parse_gcov (src))
-        #~ gcov_append (src, None)
 
     return db
 
@@ -29,5 +28,5 @@ def __pre_checks ():
 def main ():
     __pre_checks ()
     gcovdb = __scan_files ()
-    print (gcovdb)
+    output.write_index (gcovdb)
     return 0

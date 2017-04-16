@@ -1,9 +1,10 @@
 import re
 import html
 from os import path
+
 from . import config, tmpl, output
 
-# -- parse gcov regexs
+
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
 re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')
 re_gcov_normal = re.compile ('^\s*-:\s*(\d*):(.*)$')

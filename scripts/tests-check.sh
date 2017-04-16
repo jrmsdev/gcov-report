@@ -108,8 +108,12 @@ __check_html_files_list
 
 # -- check all diffs
 
-run_list=${test_dir}/run_list
-ls ${test_dir}/t???_*.c.html 2>/dev/null | sed 's/\.c\.html//' >$run_list
+run_list=${test_dir}/run_list.$$
+
+for t in $(ls t???_*.c 2>/dev/null); do
+    echo "${test_dir}/$(basename $t .c)" >>$run_list
+done
+
 ls ${shrun_dir}/*.test 2>/dev/null | sed 's/\.test//' >>$run_list
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}

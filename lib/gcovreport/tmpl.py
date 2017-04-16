@@ -7,8 +7,8 @@ CSS = '''<style>
         background-color: #000000;
         color: #666666;
         font-family: monospace;
-        font-size: 14px;
-        padding: 1% 1%;
+        font-size: 1.2em;
+        padding: 1em 1em;
         margin: 0;
         line-height: 1.3em;
     }
@@ -28,8 +28,14 @@ CSS = '''<style>
         color: #aa00bb;
     }
     footer {
-        font-size: 11px;
+        font-size: 0.7em;
         line-height: 1.1em;
+    }
+    div.navbar {
+        margin-bottom: 1em;
+    }
+    .status {
+        font-size: 0.7em;
     }
     .status_error {
         color: #cc0000;
@@ -73,8 +79,7 @@ TMPL_GCOV_ATTRIB = '<small class="status_{attr_class}">{attr_key}: {attr_val}</s
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
 TMPL_FILE_INDEX_STATUS = '''
-{file_href} <span class="status_{status}">
-<small>{status_info} done</small></span><br>
+{file_href} <span class="status status_{status}">{status_info} done</span><br>
 '''
 
 TMPL_GLOBAL_STATUS = '''
@@ -95,8 +100,9 @@ def html_link (href, content):
 
 
 def html_navbar ():
-    s = TMPL_LINK.format (href = './index.html', content = 'index')
-    return "%s\n" % s
+    s = '<div class="navbar">'
+    s += TMPL_LINK.format (href = './index.html', content = 'index')
+    return "%s</div>" % s
 
 
 def html_gcov_attribs (src, gcov):

@@ -6,20 +6,24 @@ DIFF_ARGS=${DIFF_ARGS:-'-u'}
 test_dir=gcovhtml
 expect_dir=expect
 myname=`basename $0`
-test_flist=${test_dir}/flist
-expect_flist=${test_dir}/flist.expect
 
 checks_run=0
 checks_start=`date '+%s'`
+checks_fail=0
 
 __report() {
     local checks_stop=`date '+%s'`
     local took=`expr ${checks_stop} - ${checks_start}`
-    echo "       check(s) run: ${checks_run} - in ${took} second(s)"
+    echo "       check(s) run: ${checks_run} - failed: ${checks_fail} - in ${took} second(s)"
 }
 
 __error() {
     echo "ERR: ${myname}: $@" >&2
+}
+
+__fail() {
+    echo "[FAIL] $@"
+    checks_fail=`expr 1 + $checks_fail`
 }
 
 __run_diff() {
@@ -32,7 +36,7 @@ __run_diff() {
 __check_diff() {
     local dfile=$1
     if test -s ${dfile}; then
-        echo "[FAIL] ${dfile}"
+        __fail ${dfile}
         __report
         cat $dfile
         exit 9
@@ -42,10 +46,31 @@ __check_diff() {
 }
 
 __check_html_files_list() {
+    local test_flist=${test_dir}/flist
+    local expect_flist=${test_dir}/flist.expect
     (cd $test_dir && ls *.html 2>/dev/null | sort) >$test_flist
     (cd $expect_dir && ls *.html 2>/dev/null | sort) >$expect_flist
     __run_diff $expect_flist $test_flist >${test_flist}.diff 2>${test_flist}.diff
     __check_diff ${test_flist}.diff
+}
+
+__run_check() {
+    local run_expect=$1
+    local run_test=$2
+    local run_diff=$3
+    #~ echo "    expe: $run_expect"
+    #~ echo "    test: $run_test"
+    #~ echo "    diff: $run_diff"
+    test -s $run_expect || {
+        __fail "${run_expect}: not found"
+        return
+    }
+    __run_diff $run_expect $run_test >$run_diff 2>$run_diff
+    test -e $run_diff || {
+        __fail "${run_diff}: not found"
+        return
+    }
+    __check_diff $run_diff
 }
 
 test -d ${test_dir} || {
@@ -64,13 +89,28 @@ which $DIFF_CMD >/dev/null 2>/dev/null || {
 
 __check_html_files_list
 
-for n in $(cat ${test_flist}); do
-    tfile=${test_dir}/${n}
-    dfile=${tfile}.diff
-    efile=${expect_dir}/${n}
-    __run_diff $efile $tfile >$dfile 2>$dfile
-    __check_diff $dfile
+run_list=${test_dir}/run_list
+ls *.run | sed 's/\.run//' >$run_list
+ls *.shrun | sed 's/\.shrun//' >>$run_list
+sort -u ${run_list} >${run_list}.sort
+mv -f ${run_list}.sort ${run_list}
+
+for n in $(cat ${run_list}); do
+    run_diff=${test_dir}/${n}.c.diff
+    run_test=${test_dir}/${n}.c.html
+    run_expect=${expect_dir}/${n}.c.html
+    shrun_diff=${n}.diff
+    shrun_test=${n}.shrun
+    shrun_expect=${expect_dir}/${n}.shrun
+    if test -s $run_test; then
+        #~ echo "RUN"
+        __run_check $run_expect $run_test $run_diff
+    fi
+    if test -s $shrun_test; then
+        #~ echo "SHRUN"
+        __run_check $shrun_expect $shrun_test $shrun_diff
+    fi
 done
 
 __report
-exit 0
+exit $checks_fail

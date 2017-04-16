@@ -15,16 +15,16 @@ CSS = '''<style>
     a {
         color: #cccccc;
     }
-    code.noexec {
+    span.noexec {
         color: #cc0000;
     }
-    code.exec {
+    span.exec {
         color: #00ee00;
     }
-    code.normal {
+    span.normal {
         color: #008800;
     }
-    code.info {
+    span.info {
         color: #aa00bb;
     }
     footer {
@@ -66,30 +66,37 @@ gcov-report v{appversion}
 </body>
 </html>'''
 
-TMPL_CODE_NORMAL = '<code class="normal">{lineno:>4}: {content}</code>'
+TMPL_CODE_NORMAL = '<span class="normal">{lineno:>4}: {content}</span>'
 
-TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:>4}: {content}</code>'
+TMPL_CODE_NOEXEC = '<span class="noexec">{lineno:>4}: {content}</span>'
 
-TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
+TMPL_CODE_EXEC = '<span class="exec">{lineno:>4}: {content}</span>'
 
-TMPL_GCOV_INFO = '<code class="info"><small><small>{content}</small></small></code>'
+TMPL_GCOV_INFO = '<span class="status info">{content}</span>'
 
-TMPL_GCOV_ATTRIB = '<small class="status_{attr_class}">{attr_key}: {attr_val}</small>'
+TMPL_GCOV_ATTRIB = '''
+<span class="status_{attr_class}">{attr_key}: {attr_val}</span><br>
+'''
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
+
+TMPL_FILE_INDEX_START = '<p>'
 
 TMPL_FILE_INDEX_STATUS = '''
 {file_href} <span class="status status_{status}">{status_info} done</span><br>
 '''
 
-TMPL_GLOBAL_STATUS = '''
+TMPL_FILE_INDEX_END = '</p>'
+
+TMPL_GLOBAL_STATUS = '''<p>
 global status: <span class="status_{status}">{percent:.2f}% done</span><br>
-scanned files: {filesno}<br>
+scanned files: {filesno}
+</p>
 '''
 
-TMPL_DIV_START = '<div class="div_{div_class}"><p>'
+TMPL_DIV_START = '<div class="div_{div_class}">'
 
-TMPL_DIV_END = '</p></div>'
+TMPL_DIV_END = '</div>'
 
 #
 # -- html helpers

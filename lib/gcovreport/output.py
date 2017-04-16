@@ -33,10 +33,15 @@ def write_gcov_html (src, dst, gcov):
     with open (dst, 'a') as fh:
 
         print (tmpl.html_navbar (), file = fh)
-        print (tmpl.html_gcov_attribs (src, gcov), file = fh)
 
+        print ('<p>', file = fh)
+        print (tmpl.html_gcov_attribs (src, gcov), file = fh)
+        print ('</p>', file = fh)
+
+        print ('<pre>', file = fh)
         for line in gcov['lines']:
             print (line['tmpl'].format (**line['data']), file = fh)
+        print ('</pre>', file = fh)
 
         fh.flush ()
         fh.close ()
@@ -51,7 +56,6 @@ def write_index (gcovdb):
     total_ok = 0
     total_status = 'ok'
     dst = path.join (config.htmldir, 'index.html')
-
 
     with open (dst, 'a') as fh:
 
@@ -70,6 +74,8 @@ def write_index (gcovdb):
         print (tmpl.TMPL_GLOBAL_STATUS.format (filesno = gcov_count,
                 percent = total_ok, status = total_status), file = fh)
 
+        print (tmpl.TMPL_FILE_INDEX_START, file = fh)
+
         for i in gcovdb:
             gcov_src = i['src']
             gcov = i['data']
@@ -78,6 +84,8 @@ def write_index (gcovdb):
                     file_href = tmpl.html_link (gcov_src, gcov_src),
                     status_info = gcov.get ('attr.status.info', None),
                     status = gcov.get ('attr.status', None)), file = fh)
+
+        print (tmpl.TMPL_FILE_INDEX_END, file = fh)
 
         fh.flush ()
         fh.close ()

@@ -109,15 +109,15 @@ __check_html_files_list
 # -- check all diffs
 
 run_list=${test_dir}/run_list
-ls *.run 2>/dev/null | sed 's/\.run//' >$run_list
+ls ${test_dir}/t???_*.c.html 2>/dev/null | sed 's/\.c\.html//' >$run_list
 ls ${shrun_dir}/*.test 2>/dev/null | sed 's/\.test//' >>$run_list
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}
 
 for n in $(cat ${run_list}); do
-    run_diff=${test_dir}/${n}.c.diff
-    run_test=${test_dir}/${n}.c.html
-    run_expect=${expect_dir}/${n}.c.html
+    run_diff=${n}.c.diff
+    run_test=${n}.c.html
+    run_expect="${expect_dir}/$(basename ${n}).c.html"
     shrun_diff=${n}.diff
     shrun_test=${n}.test
     shrun_expect=${n}.expect

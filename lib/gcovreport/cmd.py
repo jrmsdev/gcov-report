@@ -31,11 +31,29 @@ def __pre_checks ():
         sys.exit (1)
 
 
+def __usage (appname):
+    print ("%s [-V|--version] [-h|--help]" % appname)
+
+
 def __parse_argv (argv):
+    appname = path.basename (argv[0])
+    argc = len (argv)
+    if argc == 1:
+        return
+    if argc > 2:
+        print ("invalid args number")
+        __usage (appname)
+        sys.exit (1)
     for a in argv[0:]:
         if a == '--version' or a == '-V':
-            version.printv (appname = path.basename (argv[0]))
+            version.printv (appname = appname)
             sys.exit (0)
+        elif a == '--help' or a == '-h':
+            __usage (appname)
+            sys.exit (0)
+    print ("invalid arg")
+    __usage (appname)
+    sys.exit (3)
 
 
 def main ():

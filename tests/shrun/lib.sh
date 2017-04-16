@@ -7,5 +7,5 @@ test -x $GCOV_REPORT || {
 }
 
 run_gcov_report() {
-    $COVCMD $GCOV_REPORT $@
+    $COVCMD $GCOV_REPORT --test-mode $@
 }

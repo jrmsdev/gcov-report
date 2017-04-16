@@ -66,7 +66,7 @@ __shrun_exec() {
         shrun_test=${shrun_dir}/${n}.test
         shrun_exe=${shrun_dir}/${n}.sh
         if test -x $shrun_exe; then
-            COVERAGE_CMD="${COVCMD}" ./$shrun_exe >$shrun_test
+            COVERAGE_CMD="${COVCMD}" ./$shrun_exe >$shrun_test 2>&1
         fi
     done
 }

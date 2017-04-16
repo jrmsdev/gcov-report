@@ -5,5 +5,5 @@ test -s $shrunlib || {
     exit 1
 }
 . $shrunlib
-run_gcov_report --test-mode --help
+run_gcov_report --help
 exit 0

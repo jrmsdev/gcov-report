@@ -5,6 +5,6 @@ test -s $shrunlib || {
     exit 1
 }
 . $shrunlib
-run_gcov_report --test-mode --htmldir="fakedir"
-run_gcov_report --test-mode --htmldir=
+run_gcov_report --htmldir="fakedir"
+run_gcov_report --htmldir=
 exit 0

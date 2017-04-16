@@ -14,6 +14,7 @@ build:
 .PHONY: clean
 clean:
 	@rm -rfv gcovhtml lib/gcovreport/__pycache__
+	@$(MAKE) -C tests clean
 
 
 .PHONY: installdirs
@@ -33,3 +34,8 @@ install: build installdirs
 .PHONY: uninstall
 uninstall:
 	@rm -vrf $(DEST_BINDIR)/gcov-report $(DEST_LIBDIR) $(DEST_LICDIR)
+
+
+.PHONY: check
+check:
+	@$(MAKE) -C tests check

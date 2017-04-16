@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+    body {
+        background-color: #000000;
+        color: #666666;
+        font-family: monospace;
+        font-size: 1.2em;
+        padding: 1em 1em;
+        margin: 0;
+        line-height: 1.3em;
+    }
+    a {
+        color: #0000cc;
+    }
+    span.noexec {
+        color: #cc0000;
+    }
+    span.exec {
+        color: #00ee00;
+    }
+    span.normal {
+        color: #008800;
+    }
+    span.info {
+        color: #aa00bb;
+    }
+    footer {
+        font-size: 0.7em;
+        line-height: 1.1em;
+    }
+    footer a {
+        color: #666666;
+    }
+    div.navbar {
+        margin-bottom: 1em;
+    }
+    .status {
+        font-size: 0.7em;
+    }
+    .status_error {
+        color: #cc0000;
+    }
+    .status_info {
+        color: #00cccc;
+    }
+    .status_warn {
+        color: #cccc33;
+    }
+    .status_ok {
+        color: #00cc00;
+    }
+    .filename {
+        color: #cccccc;
+    }
+    li.index_entry {
+        margin-bottom: 0.3em;
+    }
+    </style>
+    <title>gcov-report - t000_main.c 100.00% done</title>
+</head>
+<body>
+<div class="div_gcov">
+<div class="navbar"><a href="./index.html"><b>index</b></a></div>
+<p>
+
+<span class="status_normal">gcov: t000_main.c.gcov</span><br>
+
+<span class="status_normal">runs: 1</span><br>
+
+<span class="status_info">source: t000_main.c</span><br>
+
+<span class="status_normal">source.lines: 5</span><br>
+
+<span class="status_normal">source.lines.exec: 2</span><br>
+
+<span class="status_normal">source.lines.noexec: 0</span><br>
+
+<span class="status_normal">source.lines.normal: 3</span><br>
+
+<span class="status_ok">status: ok</span><br>
+
+<span class="status_ok">status.info: 100.00%</span><br>
+
+</p>
+<pre>
+<span class="normal">   1: int</span>
+<span class="status info">function main called 1 returned 100% blocks executed 100%</span>
+<span class="exec">   2: main (void)</span>
+<span class="normal">   3: {</span>
+<span class="exec">   4:     return (0);</span>
+<span class="normal">   5: }</span>
+</pre>
+</div>
+<footer>
+t000_main.c.html: TEST_MODE:utils.asctime<br>
+<a target="_blank"
+   href="https://github.com/jrmsdev/gcov-report">gcov-report</a> vTEST_MODE:version.get_string
+</footer>
+</body>
+</html>

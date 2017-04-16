@@ -16,6 +16,7 @@ def write_html_tail (out_f):
         'appversion': version.get_string (),
         'doc_name': out_f.replace (config.htmldir + '/', '', 1),
         'doc_update': utils.asctime (),
+        'project_url': version.project_url (),
     }
     with open (out_f, 'a') as fh:
         print (tmpl.TMPL_DIV_END, file = fh)

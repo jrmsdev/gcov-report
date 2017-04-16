@@ -71,7 +71,7 @@ TMPL_HEAD = '''<!doctype html>
 TMPL_TAIL = '''<footer>
 {doc_name}: {doc_update}<br>
 <a target="_blank"
-   href="https://github.com/jrmsdev/gcov-report">gcov-report</a> v{appversion}
+   href="{project_url}">gcov-report</a> v{appversion}
 </footer>
 </body>
 </html>'''

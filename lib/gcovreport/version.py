@@ -14,3 +14,8 @@ def get_string ():
 
 def printv (appname = 'gcov-report'):
     print ("%s v%s" % (appname, get_string ()))
+
+def project_url ():
+    if config.test_mode:
+        return "TEST_MODE:version.project_url"
+    return "https://github.com/jrmsdev/gcov-report"

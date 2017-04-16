@@ -6,8 +6,8 @@ DIFF_ARGS=${DIFF_ARGS:-'-u'}
 test_dir=gcovhtml
 expect_dir=expect
 myname=`basename $0`
-test_list=${test_dir}/flist
-expect_list=${test_dir}/flist.expect
+test_flist=${test_dir}/flist
+expect_flist=${test_dir}/flist.expect
 
 checks_run=0
 checks_start=`date '+%s'`
@@ -42,10 +42,10 @@ __check_diff() {
 }
 
 __check_html_files_list() {
-    (cd $test_dir && ls *.html 2>/dev/null | sort) >$test_list
-    (cd $expect_dir && ls *.html 2>/dev/null | sort) >$expect_list
-    __run_diff $expect_list $test_list >${test_list}.diff 2>${test_list}.diff
-    __check_diff ${test_list}.diff
+    (cd $test_dir && ls *.html 2>/dev/null | sort) >$test_flist
+    (cd $expect_dir && ls *.html 2>/dev/null | sort) >$expect_flist
+    __run_diff $expect_flist $test_flist >${test_flist}.diff 2>${test_flist}.diff
+    __check_diff ${test_flist}.diff
 }
 
 test -d ${test_dir} || {
@@ -64,7 +64,7 @@ which $DIFF_CMD >/dev/null 2>/dev/null || {
 
 __check_html_files_list
 
-for n in $(cat ${test_list}); do
+for n in $(cat ${test_flist}); do
     tfile=${test_dir}/${n}
     dfile=${tfile}.diff
     efile=${expect_dir}/${n}

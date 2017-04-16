@@ -3,8 +3,6 @@ CFLAGS := -Wall -Wextra -pedantic -O0 -fprofile-arcs -ftest-coverage
 GCOV := gcov5
 TESTS != ls t???_*.c | sed 's/\.c/\.test/'
 TESTS_RUN != ls t???_*.c | sed 's/\.c/\.run/'
-SH_TESTS != ls t???_*.sh
-SH_TESTS_RUN != ls t???_*.sh | sed 's/\.sh/\.shrun/'
 
 
 .PHONY: check
@@ -20,11 +18,11 @@ build: $(TESTS)
 
 
 .PHONY: tests-run
-tests-run: $(TESTS_RUN) $(SH_TESTS_RUN)
+tests-run: $(TESTS_RUN)
 
 
 .SUFFIXES:
-.SUFFIXES: .c .test .run .sh .shrun
+.SUFFIXES: .c .test .run
 
 
 .c.test:
@@ -32,10 +30,6 @@ tests-run: $(TESTS_RUN) $(SH_TESTS_RUN)
 
 
 .test.run:
-	./$< >$@
-
-
-.sh.shrun:
 	./$< >$@
 
 
@@ -48,7 +42,7 @@ gcovhtml:
 
 .PHONY: clean
 clean:
-	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage *.shrun *.diff
+	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage
 	@rm -vrf gcovhtml htmlcov
 
 

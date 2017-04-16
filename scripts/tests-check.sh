@@ -90,8 +90,8 @@ which $DIFF_CMD >/dev/null 2>/dev/null || {
 __check_html_files_list
 
 run_list=${test_dir}/run_list
-ls *.run | sed 's/\.run//' >$run_list
-ls *.shrun | sed 's/\.shrun//' >>$run_list
+ls *.run 2>/dev/null | sed 's/\.run//' >$run_list
+ls *.shrun 2>/dev/null | sed 's/\.shrun//' >>$run_list
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}
 

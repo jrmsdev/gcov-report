@@ -45,6 +45,9 @@ def __parse_argv (argv):
         elif a == '--help' or a == '-h':
             __usage (appname)
             sys.exit (0)
+        elif a == '--test-mode':
+            config.test_mode = True
+            return
     print ("invalid arg")
     __usage (appname)
     sys.exit (3)

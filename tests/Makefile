@@ -25,7 +25,7 @@ tests-run: $(TESTS_RUN)
 
 
 .c.test:
-	$(CC) $(CFLAGS) -o $@ $<
+	@$(CC) $(CFLAGS) -o $@ $<
 
 
 .test.run:

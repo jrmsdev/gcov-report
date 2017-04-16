@@ -13,6 +13,15 @@ check: build tests-run
 	@../scripts/tests-check.sh
 
 
+.PHONY: check-coverage
+check-coverage: build tests-run
+	test -x ../venv/bin/coverage
+	@rm -rf gcovhtml
+	@mkdir -p gcovhtml
+	@../venv/bin/coverage run ../bin/gcov-report.py --test-mode
+	@../venv/bin/coverage report
+
+
 .PHONY: build
 build: $(TESTS)
 
@@ -45,15 +54,6 @@ clean:
 	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage
 	@rm -vrf gcovhtml htmlcov
 	@rm -vf shrun/*.diff shrun/*.test
-
-
-.PHONY: check-coverage
-check-coverage: check
-	test -x ../venv/bin/coverage
-	@rm -rf gcovhtml
-	@mkdir -p gcovhtml
-	@../venv/bin/coverage run ../bin/gcov-report.py --test-mode
-	@../venv/bin/coverage report
 
 
 .PHONY: htmlcov

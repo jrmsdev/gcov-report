@@ -2,7 +2,7 @@ import sys
 import html
 from os import path
 from glob import glob
-from . import config, parser, output
+from . import config, parser, output, version
 
 
 def __scan_files ():
@@ -30,7 +30,16 @@ def __pre_checks ():
         print (config.htmldir, "html dir not found")
         sys.exit (1)
 
+
+def __parse_argv (argv):
+    for a in argv:
+        if a == '--version' or a == '-V':
+            version.printv ()
+            sys.exit (0)
+
+
 def main ():
+    __parse_argv (sys.argv[0:])
     __pre_checks ()
     gcovdb = __scan_files ()
     output.write_index (gcovdb)

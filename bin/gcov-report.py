@@ -9,7 +9,7 @@ lib_check = path.join (path.dirname (__file__),
 if path.isfile (lib_check):
     sys.path.insert (0, path.dirname (path.dirname (lib_check)))
     from gcovreport import cmd
-else:
+else: # pragma: no cover
     try:
         from gcovreport import cmd
     except ImportError:

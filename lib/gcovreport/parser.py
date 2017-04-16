@@ -34,7 +34,7 @@ def parse_gcov (src):
         lines_exec = attr.get ('source.lines.exec', 0)
         lines_noexec = attr.get ('source.lines.noexec', 0)
 
-        if lines != (lines_normal + lines_exec + lines_noexec):
+        if lines != (lines_normal + lines_exec + lines_noexec): # pragma: no cover
             attr['status.info'] = "lines count error"
             attr['status'] = "error"
             attr['status.percent_ok'] = 0
@@ -113,7 +113,7 @@ def parse_gcov (src):
                 new_line (gcov, tmpl.TMPL_GCOV_INFO, html.escape (m.group (1)))
                 continue
 
-            if m is None:
+            if m is None: # pragma: no cover
                 print ("parse:", src, "unkown line:", gcov_lines)
 
         fh.close ()

@@ -156,7 +156,7 @@ def html_gcov_attribs (src, gcov):
 
                 s += TMPL_GCOV_ATTRIB.format (
                         attr_class = atclass, attr_key = kn, attr_val = kv)
-            except IndexError as e:
+            except IndexError as e: # pragma: no cover
                 print ("gcov_attribs:", src, "IndexError:", str (e))
 
     return s

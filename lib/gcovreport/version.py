@@ -5,17 +5,17 @@ VMINOR = 3
 VPATCH = 0
 
 def get_string ():
-    if config.test_mode:
-        return "TEST_MODE:version.get_string"
-    v = "%d.%d" % (VMAJOR, VMINOR)
-    if VPATCH > 0:
-        v += ".%d" % VPATCH
-    return v
+    if not config.test_mode: # pragma: no cover
+        v = "%d.%d" % (VMAJOR, VMINOR)
+        if VPATCH > 0:
+            v += ".%d" % VPATCH
+        return v
+    return "TEST_MODE:version.get_string"
 
-def printv (appname = 'gcov-report'):
+def printv (appname = 'gcov-report'): # pragma: no cover
     print ("%s v%s" % (appname, get_string ()))
 
 def project_url ():
-    if config.test_mode:
-        return "TEST_MODE:version.project_url"
-    return "https://gitlab.com/jrms/gcov-report"
+    if not config.test_mode: # pragma: no cover
+        return "https://gitlab.com/jrms/gcov-report"
+    return "TEST_MODE:version.project_url"

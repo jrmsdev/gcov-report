@@ -14,7 +14,12 @@ def __scan_files ():
             'data': gcov,
         })
 
-    for src in sorted (glob ('*.gcov')):
+    gcov_files = sorted (glob ('*.gcov'))
+    if len (gcov_files) < 1:
+        print ("no .gcov files were found")
+        sys.exit (1)
+
+    for src in gcov_files:
         gcov_append (src, parser.parse_gcov (src))
 
     return db

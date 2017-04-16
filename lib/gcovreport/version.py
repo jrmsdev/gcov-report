@@ -1,5 +1,5 @@
 VMAJOR = 0
-VMINOR = 0
+VMINOR = 1
 VPATCH = 0
 
 def get_string ():

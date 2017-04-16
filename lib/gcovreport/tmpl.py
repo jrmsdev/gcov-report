@@ -13,7 +13,7 @@ CSS = '''<style>
         line-height: 1.3em;
     }
     a {
-        color: #0000cc;
+        color: #cccccc;
     }
     code.noexec {
         color: #cc0000;
@@ -65,8 +65,6 @@ gcov-report v{appversion}
 </body>
 </html>'''
 
-TMPL_FILE_SUMM = '{idx:5}: {lines_exec:15} <i>{name}</i>'
-
 TMPL_CODE_NORMAL = '<code class="normal">{lineno:>4}: {content}</code>'
 
 TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:>4}: {content}</code>'
@@ -81,7 +79,7 @@ TMPL_LINK = '<a href="{href}">{content}</a>'
 
 TMPL_FILE_INDEX_STATUS = '{sep_char:{sep}}<span class="status_{status}">{status}</span> '
 
-TMPL_FILE_INDEX = '<b>{file_href}</b>{sep_char:{sep}} <span class="status_{status}">{status_info}</span>'
+TMPL_FILE_INDEX = '{file_href}{sep_char:{sep}} <span class="status_{status}">{status_info}</span>'
 
 TMPL_GLOBAL_STATUS = 'global status: <span class="status_{status}">{percent:.2f}% done</span>'
 
@@ -95,7 +93,7 @@ def html_link (href, content):
 
 def html_navbar ():
     s = TMPL_LINK.format (href = './index.html', content = 'index')
-    return "<b>%s</b>\n" % s
+    return "%s\n" % s
 
 
 def html_gcov_attribs (src, gcov):

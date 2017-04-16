@@ -8,5 +8,5 @@ def get ():
         v += ".%d" % VPATCH
     return v
 
-def printv ():
-    print ("gcov-report v%s" % get ())
+def printv (appname = 'gcov-report'):
+    print ("%s v%s" % (appname, get ()))

@@ -32,14 +32,14 @@ def __pre_checks ():
 
 
 def __parse_argv (argv):
-    for a in argv:
+    for a in argv[0:]:
         if a == '--version' or a == '-V':
-            version.printv ()
+            version.printv (appname = path.basename (argv[0]))
             sys.exit (0)
 
 
 def main ():
-    __parse_argv (sys.argv[0:])
+    __parse_argv (sys.argv)
     __pre_checks ()
     gcovdb = __scan_files ()
     output.write_index (gcovdb)

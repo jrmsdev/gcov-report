@@ -1,0 +1,6 @@
+fakedir html dir not found
+gcov-report.py [-V|--version] [-h|--help] [options]
+Options:
+  --htmldir=gcovhtml
+Invalid args:
+  '--htmldir='

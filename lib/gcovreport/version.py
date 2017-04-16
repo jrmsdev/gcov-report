@@ -1,7 +1,7 @@
 from . import config
 
 VMAJOR = 0
-VMINOR = 1
+VMINOR = 2
 VPATCH = 0
 
 def get_string ():

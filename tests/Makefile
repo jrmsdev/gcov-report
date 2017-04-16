@@ -9,6 +9,7 @@ TESTS_RUN != ls *.c | sed 's/\.c/\.run/g'
 check: build tests-run
 	@CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
 	@$(MAKE) gcovhtml
+	@../bin/gcov-report.py --version
 	@../scripts/tests-check.sh
 
 

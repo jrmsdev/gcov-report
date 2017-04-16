@@ -6,6 +6,6 @@ t???_*.gcda
 t???_*.c.gcov
 gcovhtml/*
 shrun/*.diff
-shrun/*.shrun
+shrun/*.test
 .coverage
 htmlcov/*

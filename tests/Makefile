@@ -44,6 +44,7 @@ gcovhtml:
 clean:
 	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage
 	@rm -vrf gcovhtml htmlcov
+	@rm -vf shrun/*.diff shrun/*.test
 
 
 .PHONY: check-coverage

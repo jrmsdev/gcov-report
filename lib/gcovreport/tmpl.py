@@ -30,6 +30,10 @@ CSS = '''<style>
     pre.index {
         line-height: 1.5em;
     }
+    footer {
+        font-size: 11px;
+        line-height: 1.1em;
+    }
     .status_error {
         color: #cc0000;
     }
@@ -48,15 +52,16 @@ TMPL_HEAD = '''<!doctype html>
 <html>
 <head>
     {css}
-    <title>jcaslib tests coverage - {title}</title>
+    <title>gcov-report - {title}</title>
 </head>
 <body>
 <pre class="{main_class}">'''
 
 TMPL_TAIL = '''</pre>
-<pre class="footer">
-<small><small>{doc_name}: {doc_update}</small></small>
-</pre>
+<footer>
+{doc_name}: {doc_update}<br>
+gcov-report v{appversion}
+</footer>
 </body>
 </html>'''
 

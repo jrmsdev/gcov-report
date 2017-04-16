@@ -1,7 +1,7 @@
 import time
 from os import path
 
-from . import tmpl, config
+from . import tmpl, config, version
 
 
 def write_html_head (out_f, title, main_class = "none"):
@@ -14,6 +14,7 @@ def write_html_head (out_f, title, main_class = "none"):
 
 def write_html_tail (out_f):
     fmt = {
+        'appversion': version.get_string (),
         'doc_name': out_f.replace (config.htmldir + '/', '', 1),
         'doc_update': time.asctime (),
     }

@@ -31,6 +31,9 @@ CSS = '''<style>
         font-size: 0.7em;
         line-height: 1.1em;
     }
+    footer a {
+        color: #666666;
+    }
     div.navbar {
         margin-bottom: 1em;
     }
@@ -67,7 +70,8 @@ TMPL_HEAD = '''<!doctype html>
 
 TMPL_TAIL = '''<footer>
 {doc_name}: {doc_update}<br>
-gcov-report v{appversion}
+<a target="_blank"
+   href="https://github.com/jrmsdev/gcov-report">gcov-report</a> v{appversion}
 </footer>
 </body>
 </html>'''

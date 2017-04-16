@@ -4,6 +4,7 @@ INSTALL_F := install -v -m 0444
 DEST_BINDIR := $(DESTDIR)$(PREFIX)/bin
 DEST_LIBDIR := $(DESTDIR)$(PREFIX)/lib/gcovreport
 DEST_LICDIR := $(DESTDIR)$(PREFIX)/share/licenses/gcov-report
+PYCMD ?= python3
 
 
 .PHONY: build
@@ -39,3 +40,10 @@ uninstall:
 .PHONY: check
 check: build
 	@$(MAKE) -C tests check
+
+
+.PHONY: venv
+venv:
+	@$(PYCMD) -m venv --clear --symlinks venv
+	@./venv/bin/pip check
+	@./venv/bin/pip install coverage

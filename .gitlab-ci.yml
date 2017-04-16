@@ -1,0 +1,10 @@
+stages:
+   - build
+
+gcc:
+    stage: build
+    only:
+        - next
+    image: gcc
+    script:
+        - make check

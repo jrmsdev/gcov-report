@@ -15,4 +15,5 @@ else:
     except ImportError:
         print ("ERR: could not import gcovreport python lib", file = sys.stderr)
         sys.exit (1)
+
 sys.exit (cmd.main ())

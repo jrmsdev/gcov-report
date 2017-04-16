@@ -34,23 +34,32 @@ def __parse_argv (argv):
     argc = len (argv)
     if argc == 1: # pragma: no cover
         return
-    if argc > 2: # pragma: no cover
-        print ("invalid args number")
-        __usage (appname)
-        sys.exit (1)
-    for a in argv[0:]:
-        if a == '--version' or a == '-V': # pragma: no cover
-            version.printv (appname = appname)
-            sys.exit (0)
-        elif a == '--help' or a == '-h': # pragma: no cover
-            __usage (appname)
-            sys.exit (0)
+    flags_invalid = list()
+    flags = {
+        'printv': False,
+        'help': False,
+    }
+    for a in argv[1:]:
+        if a == '--version' or a == '-V':
+            flags['printv'] = True
+        elif a == '--help' or a == '-h':
+            flags['help'] = True
         elif a == '--test-mode':
             config.test_mode = True
-            return
-    print ("invalid arg") # pragma: no cover
-    __usage (appname) # pragma: no cover
-    sys.exit (3) # pragma: no cover
+        else:
+            flags_invalid.append (a)
+    if len (flags_invalid) > 0:
+        __usage (appname)
+        print ("invalid args:")
+        for a in flags_invalid:
+            print (" ", a)
+        sys.exit (3)
+    if flags['printv']:
+        version.printv (appname = appname)
+        sys.exit (0)
+    elif flags['help']:
+        __usage (appname)
+        sys.exit (0)
 
 
 def main ():

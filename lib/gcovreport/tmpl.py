@@ -49,6 +49,12 @@ CSS = '''<style>
     .status_ok {
         color: #00cc00;
     }
+    .filename {
+        color: #cccccc;
+    }
+    li.index_entry {
+        margin-bottom: 1em;
+    }
     </style>'''
 
 TMPL_HEAD = '''<!doctype html>
@@ -80,13 +86,16 @@ TMPL_GCOV_ATTRIB = '''
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
-TMPL_FILE_INDEX_START = '<p>'
-
-TMPL_FILE_INDEX_STATUS = '''
-{file_href} <span class="status status_{status}">{status_info} done</span><br>
+TMPL_FILE_INDEX_START = '<ol>'
+TMPL_FILE_INDEX_STATUS = '''<li class="index_entry">
+<span class="filename">{source}</span>
+<ul>
+    <li><span class="status_{status}">{status_info} done</span>
+        <span>- {file_href}</span></li>
+</ul>
+</li>
 '''
-
-TMPL_FILE_INDEX_END = '</p>'
+TMPL_FILE_INDEX_END = '</ol>'
 
 TMPL_GLOBAL_STATUS = '''<p>
 global status: <span class="status_{status}">{percent:.2f}% done</span><br>

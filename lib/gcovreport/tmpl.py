@@ -13,7 +13,7 @@ CSS = '''<style>
         line-height: 1.3em;
     }
     a {
-        color: #cccccc;
+        color: #0000cc;
     }
     span.noexec {
         color: #cc0000;
@@ -53,7 +53,7 @@ CSS = '''<style>
         color: #cccccc;
     }
     li.index_entry {
-        margin-bottom: 1em;
+        margin-bottom: 0.3em;
     }
     </style>'''
 
@@ -87,12 +87,11 @@ TMPL_GCOV_ATTRIB = '''
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
 TMPL_FILE_INDEX_START = '<ol>'
-TMPL_FILE_INDEX_STATUS = '''<li class="index_entry">
-<span class="filename">{source}</span>
-<ul>
-    <li><span class="status_{status}">{status_info} done</span>
-        <span>- {file_href}</span></li>
-</ul>
+TMPL_FILE_INDEX_STATUS = '''
+<li class="index_entry">
+    <span class="filename">{source}</span>
+    <span class="status_{status}">{status_info} done</span>
+    <span>{file_href}</span>
 </li>
 '''
 TMPL_FILE_INDEX_END = '</ol>'
@@ -117,7 +116,7 @@ def html_link (href, content):
 
 def html_navbar ():
     s = '<div class="navbar">'
-    s += TMPL_LINK.format (href = './index.html', content = 'index')
+    s += TMPL_LINK.format (href = './index.html', content = '<b>index</b>')
     return "%s</div>" % s
 
 

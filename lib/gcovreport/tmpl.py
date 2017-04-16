@@ -89,9 +89,9 @@ TMPL_LINK = '<a href="{href}">{content}</a>'
 TMPL_FILE_INDEX_START = '<ol>'
 TMPL_FILE_INDEX_STATUS = '''
 <li class="index_entry">
-    <span class="filename">{source}</span>
-    <span class="status_{status}">{status_info} done</span>
+    <span class="status_{status}">|{status_info:|>7}|</span>
     <span>{file_href}</span>
+    <span class="filename">{source}</span>
 </li>
 '''
 TMPL_FILE_INDEX_END = '</ol>'

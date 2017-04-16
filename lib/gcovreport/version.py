@@ -18,4 +18,4 @@ def printv (appname = 'gcov-report'):
 def project_url ():
     if config.test_mode:
         return "TEST_MODE:version.project_url"
-    return "https://github.com/jrmsdev/gcov-report"
+    return "https://gitlab.com/jrms/gcov-report"

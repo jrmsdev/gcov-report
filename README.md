@@ -4,7 +4,7 @@ Create an HTML report about generated gcov data.
 
 ## Install
 
-    $ git clone https://github.com/jrmsdev/gcov-report.git
+    $ git clone https://gitlab.com/jrms/gcov-report.git
     $ cd gcov-report
     $ make install PREFIX=/usr/local
 

@@ -5,6 +5,7 @@ DIFF_ARGS=${DIFF_ARGS:-'-u'}
 
 test_dir=gcovhtml
 expect_dir=expect
+shrun_dir=shrun
 myname=`basename $0`
 
 checks_run=0
@@ -54,6 +55,17 @@ __check_html_files_list() {
     __check_diff ${test_flist}.diff
 }
 
+__shrun_exec() {
+    for s in ${shrun_dir}/t???_*.sh; do
+        n=`basename $s .sh`
+        shrun_test=${n}.shrun
+        shrun_exe=${shrun_dir}/${n}.sh
+        if test -x $shrun_exe; then
+            ./$shrun_exe >$shrun_test
+        fi
+    done
+}
+
 __run_check() {
     local run_expect=$1
     local run_test=$2
@@ -81,13 +93,20 @@ test -d ${expect_dir} || {
     __error "${expect_dir} dir not found"
     exit 2
 }
+test -d ${shrun_dir} || {
+    __error "${shrun_dir} dir not found"
+    exit 2
+}
 
 which $DIFF_CMD >/dev/null 2>/dev/null || {
     __error "${DIFF_CMD} command not found"
     exit 3
 }
 
+__shrun_exec
 __check_html_files_list
+
+# -- check all diffs
 
 run_list=${test_dir}/run_list
 ls *.run 2>/dev/null | sed 's/\.run//' >$run_list

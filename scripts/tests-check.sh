@@ -4,7 +4,7 @@ DIFF_CMD=${DIFF_CMD:-'diff'}
 DIFF_ARGS=${DIFF_ARGS:-'-u'}
 
 test_dir=gcovhtml
-expect_dir=expect/gcovhtml
+expect_dir=expect
 myname=`basename $0`
 test_list=${test_dir}/flist
 expect_list=${test_dir}/flist.expect
@@ -16,12 +16,6 @@ __report() {
     local checks_stop=`date '+%s'`
     local took=`expr ${checks_stop} - ${checks_start}`
     echo "       check(s) run: ${checks_run} - in ${took} second(s)"
-}
-
-__abort() {
-    echo "[FAIL] $@"
-    __report
-    exit 9
 }
 
 __error() {
@@ -38,7 +32,10 @@ __run_diff() {
 __check_diff() {
     local dfile=$1
     if test -s ${dfile}; then
-        __abort "[FAIL] ${dfile}"
+        echo "[FAIL] ${dfile}"
+        __report
+        cat $dfile
+        exit 9
     fi
     echo "[ OK ] ${dfile}"
     return 0

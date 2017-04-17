@@ -7,10 +7,15 @@ test -x $GCOV_REPORT || {
     exit 1
 }
 
-run_gcov_report() {
+gcov_report_cmd() {
     local covcmd=""
     if test "x$COVCMD" != "x"; then
         covcmd="${INITD}/$COVCMD"
     fi
-    $covcmd $GCOV_REPORT --test-mode $@
+    echo "$covcmd $GCOV_REPORT --test-mode $@"
+}
+
+run_gcov_report() {
+    local cmd=$(gcov_report_cmd $@)
+    $cmd
 }

@@ -7,7 +7,12 @@ from . import config, parser, output, version
 
 def __scan_files ():
     db = list()
-    gcov_files = sorted (glob ('*.gcov'))
+    scan_patt = None
+    if config.gcovdir == '.':
+        scan_patt = '*.gcov'
+    else:
+        scan_patt = "{}/*.gcov".format (config.gcovdir)
+    gcov_files = sorted (glob (scan_patt))
     if len (gcov_files) < 1:
         print ("no .gcov files were found")
         sys.exit (1)
@@ -61,6 +66,9 @@ def __parse_argv (argv):
 
         elif a.startswith ('--htmldir='):
             config.htmldir = getarg (a, '--htmldir=', config.DEFAULT_HTMLDIR)
+
+        elif a.startswith ('--gcovdir='):
+            config.gcovdir = getarg (a, '--gcovdir=', config.DEFAULT_GCOVDIR)
 
         else:
             flags_invalid.append (a)

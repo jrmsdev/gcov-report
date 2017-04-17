@@ -1,3 +1,4 @@
+shrun t002_cmd_help.sh
 gcov-report.py [-V|--version] [-h|--help] [options]
 Options:
   --htmldir=gcovhtml

@@ -1,5 +1,6 @@
-GCOV_REPORT=../bin/gcov-report.py
+GCOV_REPORT="$(realpath ../bin/gcov-report.py)"
 COVCMD="${COVERAGE_CMD}"
+INITD="$(pwd)"
 
 test -x $GCOV_REPORT || {
     echo "ERR: $GCOV_REPORT script not found"
@@ -7,5 +8,9 @@ test -x $GCOV_REPORT || {
 }
 
 run_gcov_report() {
-    $COVCMD $GCOV_REPORT --test-mode $@
+    local covcmd=""
+    if test "x$COVCMD" != "x"; then
+        covcmd="${INITD}/$COVCMD"
+    fi
+    $covcmd $GCOV_REPORT --test-mode $@
 }

@@ -5,6 +5,5 @@ test -s $shrunlib || {
     exit 1
 }
 . $shrunlib
-echo "GCOV_REPORT: $GCOV_REPORT"
 run_gcov_report --version
 exit 0

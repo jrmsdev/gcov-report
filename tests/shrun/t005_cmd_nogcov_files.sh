@@ -8,19 +8,12 @@ test -s $shrunlib || {
 echo $(basename $0)
 
 tmpdir=/tmp/gcov-report-test.$$.htmldir
-initdir=$(realpath ${PWD})
-coverage=""
-
-if test "x$COVCMD" != "x"; then
-    coverage=${initdir}/${COVCMD}
-fi
-
 mkdir -p $tmpdir
 cd $tmpdir
 
 ls *.gcov
-$coverage ${initdir}/$GCOV_REPORT --test-mode --htmldir=.
+run_gcov_report --htmldir=.
 
-cd $initdir
+cd $INITD
 rm -rf $tmpdir
 exit 0

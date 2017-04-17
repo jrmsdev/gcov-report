@@ -38,21 +38,33 @@ def __parse_argv (argv):
         'printv': False,
         'help': False,
     }
-    for a in argv[1:]:
-        if a == '--version' or a == '-V':
-            flags['printv'] = True
-        elif a == '--help' or a == '-h':
-            flags['help'] = True
-        elif a == '--test-mode':
-            config.test_mode = True
-        elif a.startswith ('--htmldir='):
-            v = a.split ('=')[1].strip ()
+
+    def getarg(a, key, default = None):
+        if a.startswith (key):
+            v = a.replace (key, '', 1).strip ()
             if v == "":
                 flags_invalid.append (a)
             else:
-                config.htmldir = v
+                return v
+        return default
+
+    for a in argv[1:]:
+
+        if a == '--version' or a == '-V':
+            flags['printv'] = True
+
+        elif a == '--help' or a == '-h':
+            flags['help'] = True
+
+        elif a == '--test-mode':
+            config.test_mode = True
+
+        elif a.startswith ('--htmldir='):
+            config.htmldir = getarg (a, '--htmldir=', config.DEFAULT_HTMLDIR)
+
         else:
             flags_invalid.append (a)
+
     if len (flags_invalid) > 0:
         __usage (appname)
         print ("Invalid args:")

@@ -11,6 +11,8 @@ check: build tests-run
 	@CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
 	@../bin/gcov-report.py --version
 	@$(MAKE) gcovhtml COVERAGE_CMD='$(COVERAGE_CMD)'
+	@rm -rf testdata
+	@mkdir -p testdata
 	@COVERAGE_CMD='$(COVERAGE_CMD)' ../scripts/tests-check.sh
 
 

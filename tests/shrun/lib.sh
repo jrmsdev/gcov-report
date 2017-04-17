@@ -19,5 +19,5 @@ run_gcov_report() {
     if test "x$COVCMD" != "x"; then
         covcmd="${INITD}/$COVCMD"
     fi
-    $covcmd $GCOV_REPORT --test-mode $@
+    $covcmd $GCOV_REPORT --test-mode  --htmldir=testdata --gcovdir=testdata $@
 }

@@ -36,7 +36,7 @@ def __usage (appname):
 def __parse_argv (argv):
     appname = path.basename (argv[0])
     argc = len (argv)
-    if argc == 1:
+    if argc == 1: # pragma: no cover
         return
     flags_invalid = list()
     flags = {

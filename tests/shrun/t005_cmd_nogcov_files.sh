@@ -5,5 +5,5 @@ test -s $shrunlib || {
     exit 1
 }
 . $shrunlib
-run_gcov_report --htmldir=testdata --gcovdir=testdata
+run_gcov_report
 exit 0

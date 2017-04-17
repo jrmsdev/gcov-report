@@ -9,3 +9,4 @@ shrun/*.diff
 shrun/*.test
 .coverage
 htmlcov/*
+testdata/*

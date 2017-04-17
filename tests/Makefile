@@ -54,7 +54,7 @@ gcovhtml:
 .PHONY: clean
 clean:
 	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage
-	@rm -vrf gcovhtml htmlcov
+	@rm -vrf gcovhtml htmlcov testdata
 	@rm -vf shrun/*.diff shrun/*.test
 
 

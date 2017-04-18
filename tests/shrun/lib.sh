@@ -1,3 +1,4 @@
+SHRUN_DEBUG=${SHRUN_DEBUG:-'false'}
 GCOV_REPORT="$(realpath ../bin/gcov-report.py)"
 COVCMD="${COVERAGE_CMD}"
 INITD="$(pwd)"
@@ -16,10 +17,20 @@ test -d ./testdata || {
     exit 1
 }
 
+shrun_debug() {
+    $SHRUN_DEBUG && echo "D: $@"
+}
+
+shrun_debug "INITD: $INITD"
+shrun_debug "TMPDIR: $TMPDIR"
+
 run_gcov_report() {
     local covcmd=""
+    local gcov_cmd=""
     if test "x$COVCMD" != "x"; then
         covcmd="${INITD}/$COVCMD"
     fi
-    $covcmd $GCOV_REPORT --test-mode  --htmldir=t$TMPDIR --gcovdir=$TMPDIR $@
+    gcov_cmd="$GCOV_REPORT --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR $@"
+    shrun_debug "RUN: $covcmd $gcov_cmd"
+    $covcmd $gcov_cmd
 }

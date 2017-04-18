@@ -62,7 +62,7 @@ def write_index (gcovdb):
             percent_total += gcov.get ('attr.__percent_ok', 0)
         total_ok = (percent_total * 100) / total_expect
 
-        if total_ok <= config.percent_error: # pragma: no cover
+        if total_ok <= config.percent_error:
             total_status = 'error'
         elif total_ok <= config.percent_warn:
             total_status = 'warn'

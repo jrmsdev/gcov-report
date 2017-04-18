@@ -24,14 +24,16 @@ shrun_debug() {
 shrun_debug "INITD: $INITD"
 shrun_debug "TMPDIR: $TMPDIR"
 
-run_gcov_report() {
+run_custom_gcov_report() {
     local covcmd=""
-    local gcov_cmd=""
     if test "x$COVCMD" != "x"; then
         covcmd="${INITD}/$COVCMD"
         export COVERAGE_FILE=${INITD}/.coverage
     fi
-    gcov_cmd="$GCOV_REPORT --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR"
-    shrun_debug "RUN: $covcmd $gcov_cmd $@"
-    $covcmd $gcov_cmd $@
+    shrun_debug "RUN: $covcmd $GCOV_REPORT $@"
+    $covcmd $GCOV_REPORT $@
+}
+
+run_gcov_report() {
+    run_custom_gcov_report --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR $@
 }

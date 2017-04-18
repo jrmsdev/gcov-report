@@ -25,11 +25,12 @@ installdirs:
 
 
 .PHONY: install
-install: build installdirs
+install: build installdirs dist/release.txt
 	@$(INSTALL_EXE) bin/gcov-report.py $(DEST_BINDIR)/gcov-report
 	@$(INSTALL_F) lib/gcovreport/*.py $(DEST_LIBDIR)
 	@$(INSTALL_F) lib/gcovreport/__pycache__/*.pyc $(DEST_LIBDIR)/__pycache__
 	@$(INSTALL_F) LICENSE $(DEST_LICDIR)
+	@$(INSTALL_F) dist/release.txt $(DEST_LIBDIR)
 
 
 .PHONY: uninstall
@@ -56,4 +57,9 @@ check-coverage: build venv
 
 .PHONY: distclean
 distclean: clean
-	@rm -vrf venv
+	@rm -vrf venv dist
+
+
+.PHONY: dist/release.txt
+dist/release.txt:
+	@./scripts/mk-releasetxt.sh

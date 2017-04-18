@@ -132,7 +132,7 @@ def main ():
 
     def pre_checks ():
         if not path.isdir (config.htmldir):
-            if 1 or not config.test_mode:
+            if not config.test_mode:
                 print (config.htmldir, ": ", sep = '', end = '')
             print ("htmldir not found")
             sys.exit (1)

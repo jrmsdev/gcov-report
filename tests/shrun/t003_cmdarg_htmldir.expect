@@ -1,7 +1,3 @@
 shrun t003_cmdarg_htmldir.sh
 fakedir html dir not found
-gcov-report.py [-V|--version] [-h|--help] [options]
-Options:
-  --htmldir=gcovhtml
-Invalid args:
-  '--htmldir='
+no .gcov files were found

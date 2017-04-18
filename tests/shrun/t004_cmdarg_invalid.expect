@@ -1,6 +1,16 @@
 shrun t004_cmdarg_invalid.sh
-gcov-report.py [-V|--version] [-h|--help] [options]
-Options:
-  --htmldir=testdata
-Invalid args:
-  '--invalidarg'
+gcov-report.py [-h|-V] [options]
+
+gcov-report.py (v0.5) options:
+  -V, --version
+      show version and exit
+  -h, --help
+      show this help message
+  -o, --htmldir='gcovhtml' *
+      html/output directory path
+  -i, --gcovdir='.' *
+      input directory path containing *.gcov files to parse
+
+* an option arg is required (show default values)
+
+option --invalidarg not recognized

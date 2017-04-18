@@ -116,10 +116,10 @@ def main ():
             elif optn == '--test-mode':
                 config.test_mode = True
 
-            elif optn.startswith ('--htmldir='):
+            elif optn == '--htmldir':
                 config.htmldir = optv or config.DEFAULT_HTMLDIR
 
-            elif optn.startswith ('--gcovdir='):
+            elif optn == '--gcovdir':
                 config.gcovdir = optv or config.DEFAULT_GCOVDIR
 
         if flags['version']:

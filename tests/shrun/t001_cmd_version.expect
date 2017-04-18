@@ -1,2 +1,2 @@
-shrun t001_cmd_version.sh
+shrun/t001_cmd_version
 gcov-report.py vTEST_MODE:version.get_string

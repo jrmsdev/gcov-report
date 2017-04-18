@@ -1,4 +1,4 @@
-shrun t002_cmd_help.sh
+shrun/t002_cmd_help
 gcov-report.py [-h|-V] [options]
 
 gcov-report.py (vTEST_MODE:version.get_string) options:

@@ -1,4 +1,4 @@
-shrun t004_cmdarg_invalid.sh
+shrun/t004_cmdarg_invalid
 gcov-report.py [-h|-V] [options]
 
 gcov-report.py (v0.5) options:

@@ -1,4 +1,4 @@
-shrun t006_getopt_invalid_arg.sh
+shrun/t006_getopt_invalid_arg
 gcov-report.py [-h|-V] [options]
 
 gcov-report.py (v0.5) options:

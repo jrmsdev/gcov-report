@@ -1,2 +1,2 @@
-shrun t005_cmd_nogcov_files.sh
+shrun/t005_cmd_nogcov_files
 no .gcov files were found

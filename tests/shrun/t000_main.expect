@@ -1,2 +1,2 @@
-shrun t000_main.sh
+shrun/t000_main
 OK: ./shrun/lib.sh

@@ -5,5 +5,5 @@ test -s $shrunlib || {
     exit 1
 }
 . $shrunlib
-run_gcov_report noopt_arg0 noopt_arg1
+run_gcov_report noopt_arg0 noopt_arg1 | grep -vF 'gcov-report.py'
 exit 0

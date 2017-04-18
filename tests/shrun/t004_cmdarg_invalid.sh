@@ -5,5 +5,6 @@ test -s $shrunlib || {
     exit 1
 }
 . $shrunlib
-run_gcov_report --invalidarg
+run_gcov_report --invalidarg | grep -vF 'gcov-report.py'
+
 exit 0

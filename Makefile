@@ -14,7 +14,7 @@ build:
 
 .PHONY: clean
 clean:
-	@rm -rfv gcovhtml lib/gcovreport/__pycache__
+	@rm -rfv gcovhtml lib/gcovreport/__pycache__ dist/release.txt
 	@$(MAKE) -C tests clean
 
 
@@ -22,10 +22,6 @@ clean:
 installdirs:
 	@mkdir -vp $(DEST_BINDIR) $(DEST_LIBDIR) $(DEST_LICDIR)
 	@mkdir -vp $(DEST_LIBDIR)/__pycache__
-
-
-dist/release.txt:
-	@./scripts/mk-releasetxt.sh
 
 
 .PHONY: install
@@ -62,3 +58,17 @@ check-coverage: build venv
 .PHONY: distclean
 distclean: clean
 	@rm -vrf venv dist
+
+
+dist/release.txt:
+	@mkdir -vp dist
+	@./scripts/mk-releasetxt.sh
+
+
+.PHONY: dist
+dist: dist/release.txt
+	@mkdir -vp dist
+	@rm -rf dist/work
+	@$(MAKE) install DESTDIR=dist/work PREFIX=$(PREFIX)
+	@rm -rf dist/work/$(PREFIX)/lib/gcovreport/__pycache__
+	@./scripts/mkdist-tar.sh

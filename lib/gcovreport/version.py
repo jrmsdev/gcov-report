@@ -2,14 +2,11 @@ from . import config
 
 VMAJOR = 0
 VMINOR = 6
-VPATCH = 0
+VPATCH = 1
 
 def get_string ():
     global VPATCH
     s = "{:d}.{:d}".format (VMAJOR, VMINOR)
-    if config.test_mode:
-        if VPATCH == 0:
-            VPATCH = 999
     if VPATCH > 0:
         s += ".{:d}".format (VPATCH)
     if config.test_mode:

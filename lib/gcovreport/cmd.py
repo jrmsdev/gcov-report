@@ -28,6 +28,12 @@ __cmdopts = [
         'default': config.DEFAULT_GCOVDIR,
         'help': 'input directory path containing *.gcov files to parse',
     },
+    # hidden option (only used for internal tests)
+    {
+        'long': 'test-mode', 'short': None,
+        'default': None,
+        'help': None,
+    },
 ]
 
 
@@ -37,9 +43,12 @@ def main ():
     def usage ():
         print ("{} [-h|-V] [options]".format (cmdname))
         print ()
-        print ("Options (", version.get_string (), "):", sep = '')
+        print (cmdname, " (v", version.get_string (), ") options:", sep = '')
 
         for opt in __cmdopts:
+            if opt['help'] is None:
+                continue
+
             print ("  ", end = '') # indent
 
             if opt['short'] is not None:
@@ -95,7 +104,6 @@ def main ():
             sys.exit (1)
 
         for opt in opts:
-            print (opt)
             optn = opt[0]
             optv = opt[1]
 
@@ -115,14 +123,12 @@ def main ():
                 config.gcovdir = optv or config.DEFAULT_GCOVDIR
 
         if flags['version']:
-            print (version.get_string (cmdname))
+            print (cmdname, " v", version.get_string (), sep = '')
             sys.exit (0)
 
         elif flags['help']:
             usage ()
             sys.exit (0)
-
-        sys.exit (128)
 
     def pre_checks ():
         if not path.isdir (config.htmldir):

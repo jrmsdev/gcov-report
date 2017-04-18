@@ -3,7 +3,7 @@ GCOV_REPORT="$(realpath ../bin/gcov-report.py)"
 COVCMD="${COVERAGE_CMD}"
 INITD="$(pwd)"
 MYNAME="shrun/$(basename $0 .sh)"
-TMPDIR="${INITD}/testdata/${MYNAME}.tmpdir"
+TMPDIR=${INITD}/testdata/${MYNAME}.tmpdir
 
 echo "$MYNAME" # ensure at least one line of output
 
@@ -18,7 +18,7 @@ test -d ./testdata || {
 }
 
 shrun_debug() {
-    $SHRUN_DEBUG && echo "D: $@"
+    $SHRUN_DEBUG && echo "D: $@" >&2
 }
 
 shrun_debug "INITD: $INITD"
@@ -29,6 +29,7 @@ run_gcov_report() {
     local gcov_cmd=""
     if test "x$COVCMD" != "x"; then
         covcmd="${INITD}/$COVCMD"
+        export COVERAGE_FILE=${INITD}/.coverage
     fi
     gcov_cmd="$GCOV_REPORT --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR $@"
     shrun_debug "RUN: $covcmd $gcov_cmd"

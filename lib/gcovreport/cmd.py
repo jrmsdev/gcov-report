@@ -122,13 +122,16 @@ def main ():
             elif optn == '--gcovdir' or optn == '-i':
                 config.gcovdir = optv or config.DEFAULT_GCOVDIR
 
+        # -- enable test mode
         if config.test_mode:
             print (cmdname, "test mode enabled")
 
+        # -- print version and exit
         if flags['version']:
-            print (cmdname, " v", version.get_string (), sep = '')
+            print (cmdname, " v", version.get_string (show_release = True), sep = '')
             sys.exit (0)
 
+        # -- print help and exit
         elif flags['help']:
             usage ()
             sys.exit (0)

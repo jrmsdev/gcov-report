@@ -8,4 +8,4 @@ which git >/dev/null 2>/dev/null && {
 }
 
 printf "\n" >>dist/release.txt
-cat dist/release.txt
+date >>dist/release.txt

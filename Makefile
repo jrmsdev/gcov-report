@@ -24,6 +24,10 @@ installdirs:
 	@mkdir -vp $(DEST_LIBDIR)/__pycache__
 
 
+dist/release.txt:
+	@./scripts/mk-releasetxt.sh
+
+
 .PHONY: install
 install: build installdirs dist/release.txt
 	@$(INSTALL_EXE) bin/gcov-report.py $(DEST_BINDIR)/gcov-report
@@ -58,8 +62,3 @@ check-coverage: build venv
 .PHONY: distclean
 distclean: clean
 	@rm -vrf venv dist
-
-
-.PHONY: dist/release.txt
-dist/release.txt:
-	@./scripts/mk-releasetxt.sh

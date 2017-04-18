@@ -31,7 +31,7 @@ run_gcov_report() {
         covcmd="${INITD}/$COVCMD"
         export COVERAGE_FILE=${INITD}/.coverage
     fi
-    gcov_cmd="$GCOV_REPORT --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR $@"
-    shrun_debug "RUN: $covcmd $gcov_cmd"
-    $covcmd $gcov_cmd
+    gcov_cmd="$GCOV_REPORT --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR"
+    shrun_debug "RUN: $covcmd $gcov_cmd $@"
+    $covcmd $gcov_cmd $@
 }

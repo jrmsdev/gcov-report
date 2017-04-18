@@ -122,6 +122,9 @@ def main ():
             elif optn == '--gcovdir' or optn == '-i':
                 config.gcovdir = optv or config.DEFAULT_GCOVDIR
 
+        if config.test_mode:
+            print (cmdname, "test mode enabled")
+
         if flags['version']:
             print (cmdname, " v", version.get_string (), sep = '')
             sys.exit (0)
@@ -132,9 +135,10 @@ def main ():
 
     def pre_checks ():
         if not path.isdir (config.htmldir):
-            if not config.test_mode:
-                print (config.htmldir, ": ", sep = '', end = '')
-            print ("htmldir not found")
+            err = "{}: htmldir not found".format (config.htmldir)
+            if config.test_mode:
+                err = err.replace (config.htmldir, path.basename (config.htmldir), 1)
+            print (err)
             sys.exit (1)
 
     def scan_files ():

@@ -1,2 +1,3 @@
 shrun/t001_cmd_version
+gcov-report.py test mode enabled
 gcov-report.py vTEST_MODE:version.get_string

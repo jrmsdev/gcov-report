@@ -1,4 +1,5 @@
 shrun/t002_cmd_help
+gcov-report.py test mode enabled
 gcov-report.py [-h|-V] [options]
 
 gcov-report.py (vTEST_MODE:version.get_string) options:

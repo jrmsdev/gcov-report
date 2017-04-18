@@ -1,2 +1,3 @@
 shrun/t005_cmd_nogcov_files
+gcov-report.py test mode enabled
 no .gcov files were found

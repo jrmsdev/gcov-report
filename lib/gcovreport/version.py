@@ -4,16 +4,14 @@ VMAJOR = 0
 VMINOR = 5
 VPATCH = 0
 
-def get_string ():
+def get_string (cmdname = 'gcov-report'):
+    s = cmdname
     if not config.test_mode: # pragma: no cover
-        v = "%d.%d" % (VMAJOR, VMINOR)
+        s += " v{:d}.{:d}".format (VMAJOR, VMINOR)
         if VPATCH > 0:
-            v += ".%d" % VPATCH
-        return v
-    return "TEST_MODE:version.get_string"
-
-def printv (appname = 'gcov-report'): # pragma: no cover
-    print ("%s v%s" % (appname, get_string ()))
+            s += ".{:d}".format (VPATCH)
+        return s
+    return s + " TEST_MODE:version.get_string"
 
 def project_url ():
     if not config.test_mode: # pragma: no cover

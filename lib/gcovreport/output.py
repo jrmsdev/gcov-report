@@ -9,7 +9,6 @@ def write_html_head (out_f, title, div_class):
         t = tmpl.TMPL_HEAD()
         t.set ('title', title)
         t.set ('css', tmpl.CSS)
-        print ("write_html_head TMPL_HEAD:", t)
         print (t.format (), file = fh)
 
         t = tmpl.TMPL_DIV_START()

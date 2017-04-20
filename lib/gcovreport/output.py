@@ -1,3 +1,4 @@
+import html
 from os import path
 from . import tmpl, config, version, utils
 
@@ -79,7 +80,8 @@ def write_index (gcovdb):
 
             print (tmpl.TMPL_FILE_INDEX_STATUS.format (
                     source = attr_src,
-                    file_href = tmpl.html_link (path.basename (attr_src), '>>>'),
+                    file_href = tmpl.html_link (path.basename (attr_src),
+                            html.escape ('>>>')),
                     status_info = gcov.get ('attr.status.info', None),
                     status = gcov.get ('attr.status', None)), file = fh)
 

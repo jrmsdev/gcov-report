@@ -1,3 +1,5 @@
+/* t001_noexec.c */
+
 static int check_val (int v)
 {
     if (v == 0)

@@ -1,3 +1,5 @@
+/* t000_main.c */
+
 int
 main (void)
 {

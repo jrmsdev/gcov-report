@@ -1,3 +1,5 @@
+/* t002_noexec_error.c */
+
 static int check_val (int v)
 {
     if (v == 0)

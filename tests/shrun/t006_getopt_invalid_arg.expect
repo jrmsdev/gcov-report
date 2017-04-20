@@ -1,13 +1,13 @@
 shrun/t006_getopt_invalid_arg
 
-  -V, --version
-      show version and exit
   -h, --help
       show this help message
-  -o, --htmldir='gcovhtml' *
-      html/output directory path
+  -V, --version
+      show version and exit
   -i, --gcovdir='.' *
       input directory path containing *.gcov files to parse
+  -o, --htmldir='gcovhtml' *
+      html/output directory path
 
 * an option arg is required (show default values)
 

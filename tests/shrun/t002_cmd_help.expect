@@ -1,16 +1,16 @@
 shrun/t002_cmd_help
 gcov-report.py test mode enabled
-gcov-report.py [-h|-V] [options]
+gcov-report.py vTEST_MODE:version.get_string
 
-gcov-report.py (vTEST_MODE:version.get_string) options:
-  -V, --version
-      show version and exit
+gcov-report.py [-h|-V] [options]
   -h, --help
       show this help message
-  -o, --htmldir='gcovhtml' *
-      html/output directory path
+  -V, --version
+      show version and exit
   -i, --gcovdir='.' *
       input directory path containing *.gcov files to parse
+  -o, --htmldir='gcovhtml' *
+      html/output directory path
 
 * an option arg is required (show default values)
 

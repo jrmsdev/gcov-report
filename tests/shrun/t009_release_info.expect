@@ -1,2 +1,3 @@
 shrun/t009_release_info
-relinfo: 0123456
+relinfo: (0123456)
+ERR invalid release info: '(0123456)'

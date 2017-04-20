@@ -24,24 +24,24 @@ class CmdOption:
 __cmdopts = [
     # options name format as in help(getops) documentation
     CmdOption (
-        long = 'version', short = 'V',
-        default = None,
-        help = 'show version and exit',
-    ),
-    CmdOption (
         long = 'help', short = 'h',
         default = None,
         help = 'show this help message',
     ),
     CmdOption (
-        long = 'htmldir=', short = 'o:',
-        default = config.DEFAULT_HTMLDIR,
-        help = 'html/output directory path',
+        long = 'version', short = 'V',
+        default = None,
+        help = 'show version and exit',
     ),
     CmdOption (
         long = 'gcovdir=', short = 'i:',
         default = config.DEFAULT_GCOVDIR,
         help = 'input directory path containing *.gcov files to parse',
+    ),
+    CmdOption (
+        long = 'htmldir=', short = 'o:',
+        default = config.DEFAULT_HTMLDIR,
+        help = 'html/output directory path',
     ),
     # hidden option (only used for internal tests)
     CmdOption (
@@ -56,9 +56,9 @@ def main ():
     cmdname = path.basename (sys.argv[0])
 
     def usage ():
-        print ("{} [-h|-V] [options]".format (cmdname))
+        print (cmdname, " v", version.get_string (), "", sep = '')
         print ()
-        print (cmdname, " (v", version.get_string (), ") options:", sep = '')
+        print ("{} [-h|-V] [options]".format (cmdname))
 
         for opt in __cmdopts:
             if opt.help is None:
@@ -147,7 +147,7 @@ def main ():
 
         # -- print version and exit
         if flags['version']:
-            print (cmdname, " v", version.get_string (show_release = True), sep = '')
+            print (cmdname, " v", version.get_string (), sep = '')
             sys.exit (0)
 
         # -- print help and exit

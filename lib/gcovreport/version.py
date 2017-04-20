@@ -24,16 +24,15 @@ def __release ():
         pass
     return ('', '', '')
 
-def get_string (show_release = False):
+def get_string ():
     s = __string ()
-    if show_release:
-        r = __release ()
-        try:
-            if r[2] != '':
-                if r[1] == "v{}".format (s):
-                    s += " {:.7s}".format (r[2])
-        except IndexError:
-            pass
+    r = __release ()
+    try:
+        if r[2] != '':
+            if r[1] == "v{}".format (s):
+                s += " ({:.7s})".format (r[2])
+    except IndexError:
+        pass
     return s
 
 def project_url ():

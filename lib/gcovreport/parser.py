@@ -30,7 +30,10 @@ class GcovLine:
 
 
 class GcovAttribs:
-    _d = dict ()
+    _d = None
+
+    def __init__ (self):
+        self._d = dict ()
 
     def __str__ (self):
         return "{}".format (str (sorted (
@@ -59,8 +62,12 @@ class GcovAttribs:
 
 
 class Gcov:
-    lines = list()
-    attribs = GcovAttribs()
+    lines = None
+    attribs = None
+
+    def __init__ (self):
+        self.lines = list()
+        self.attribs = GcovAttribs()
 
     def __str__(self):
         return "Gcov:{}".format (str (self.attribs))

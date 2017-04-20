@@ -79,6 +79,7 @@ def write_index (gcovdb):
             total_status = 'warn'
 
         write_html_head (dst, '%.2f%% done' % total_ok, 'index')
+        debug.log ("write_index:", dst)
 
         t = tmpl.TMPL_GLOBAL_STATUS()
         t.set ('filesno', gcov_count)

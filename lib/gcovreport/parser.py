@@ -67,7 +67,7 @@ class Gcov:
         lines_exec = self.attribs.get ('source.lines.exec', 0)
         lines_noexec = self.attribs.get ('source.lines.noexec', 0)
 
-        if lines != (lines_normal + lines_exec + lines_noexec): # pragma: no cover
+        if lines != (lines_normal + lines_exec + lines_noexec):
             self.attribs.set ('status.info', "lines count error")
             self.attribs.set ('status', "error")
             self.attribs.set ('status.percent_ok', 0)

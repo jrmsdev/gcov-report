@@ -92,8 +92,8 @@ def write_index (gcovdb):
             t.set ('source', attr_src)
             t.set ('file_href', tmpl.html_link (path.basename (attr_src),
                             html.escape ('>>>')))
-            t.set ('status_info', gcov.attribs.get ('status.info', None))
-            t.set ('status', gcov.attribs.get ('status', None))
+            t.set ('status_info', gcov.attribs.get ('status.info'))
+            t.set ('status', gcov.attribs.get ('status'))
             print (t.format (), file = fh)
 
         print (tmpl.TMPL_FILE_INDEX_END().format (), file = fh)

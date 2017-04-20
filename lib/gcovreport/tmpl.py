@@ -114,7 +114,7 @@ def html_navbar ():
     t = TMPL_LINK()
     t.set ('href', './index.html')
     t.set ('content', '<b>index</b>')
-    s = t.format ()
+    s += t.format ()
     return "%s</div>" % s
 
 
@@ -161,8 +161,7 @@ def html_gcov_attribs (src, gcov):
     return s
 
 
-CSS = '''
-<style>
+CSS = '''<style>
     body {
         background-color: #000000;
         color: #666666;

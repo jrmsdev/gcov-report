@@ -5,6 +5,7 @@ DEST_BINDIR := $(DESTDIR)$(PREFIX)/bin
 DEST_LIBDIR := $(DESTDIR)$(PREFIX)/lib/gcovreport
 DEST_LICDIR := $(DESTDIR)$(PREFIX)/share/licenses/gcov-report
 PYCMD ?= python3
+VENVDIR ?= $(PREFIX)/venv.py3/gcov-report
 
 
 .PHONY: build
@@ -45,9 +46,9 @@ check: build
 
 .PHONY: venv
 venv:
-	@$(PYCMD) -m venv --symlinks venv
-	@./venv/bin/pip check
-	@./venv/bin/pip install coverage
+	@$(PYCMD) -m venv --symlinks $(VENVDIR)
+	@$(VENVDIR)/bin/pip check
+	@$(VENVDIR)/bin/pip install coverage
 
 
 .PHONY: check-coverage
@@ -57,7 +58,7 @@ check-coverage: build venv
 
 .PHONY: distclean
 distclean: clean
-	@rm -vrf venv dist
+	@rm -vrf dist
 
 
 dist/release.txt:

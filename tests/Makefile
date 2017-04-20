@@ -4,6 +4,8 @@ GCOV := gcov5
 TESTS != ls t???_*.c | sed 's/\.c/\.test/'
 TESTS_RUN != ls t???_*.c | sed 's/\.c/\.run/'
 COVERAGE_CMD ?=
+PREFIX ?= /opt/pkg
+VENVDIR ?= $(PREFIX)/venv.py3/gcov-report
 
 
 .PHONY: check
@@ -18,10 +20,10 @@ check: build tests-run
 
 .PHONY: check-coverage
 check-coverage:
-	test -x ../venv/bin/coverage
+	test -x $(VENVDIR)/bin/coverage
 	@rm -vf .coverage
-	@$(MAKE) check COVERAGE_CMD='../venv/bin/coverage run'
-	@../venv/bin/coverage report
+	@$(MAKE) check COVERAGE_CMD='$(VENVDIR)/bin/coverage run'
+	@$(VENVDIR)/bin/coverage report
 
 
 .PHONY: build
@@ -60,5 +62,5 @@ clean:
 
 .PHONY: htmlcov
 htmlcov:
-	test -x ../venv/bin/coverage
-	../venv/bin/coverage html
+	test -x $(VENVDIR)/bin/coverage
+	$(VENVDIR)/bin/coverage html

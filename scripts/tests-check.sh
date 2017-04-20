@@ -42,9 +42,9 @@ __run_diff() {
 __check_diff() {
     local dfile=$1
     if test -s ${dfile}; then
+        cat $dfile
         __fail ${dfile}
         __report
-        cat $dfile
         exit 9
     fi
     echo "[ OK ] ${dfile}"

@@ -11,8 +11,8 @@ check: build tests-run
 	@CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
 	@../bin/gcov-report.py --version
 	@$(MAKE) gcovhtml COVERAGE_CMD='$(COVERAGE_CMD)'
-	@rm -rf testdata
-	@mkdir -p testdata
+	@rm -rf tmpdir
+	@mkdir -p tmpdir
 	@COVERAGE_CMD='$(COVERAGE_CMD)' ../scripts/tests-check.sh
 
 
@@ -54,7 +54,7 @@ gcovhtml:
 .PHONY: clean
 clean:
 	@rm -vf *.test *.run *.gcda *.gcno *.gcov .coverage
-	@rm -vrf gcovhtml htmlcov testdata
+	@rm -vrf gcovhtml htmlcov tmpdir
 	@rm -vf shrun/*.diff shrun/*.test
 
 

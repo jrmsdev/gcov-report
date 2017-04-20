@@ -3,7 +3,7 @@ GCOV_REPORT="$(realpath ../bin/gcov-report.py)"
 COVCMD="${COVERAGE_CMD}"
 INITD="$(pwd)"
 MYNAME="shrun/$(basename $0 .sh)"
-TMPDIR=${INITD}/testdata/${MYNAME}.tmpdir
+TMPDIR=${INITD}/tmpdir/${MYNAME}
 
 echo "$MYNAME" # ensure at least one line of output
 
@@ -12,8 +12,8 @@ test -x $GCOV_REPORT || {
     exit 1
 }
 
-test -d ./testdata || {
-    echo "ERR ${MYNAME}: testdata dir not found"
+test -d ./tmpdir || {
+    echo "ERR ${MYNAME}: tmpdir dir not found"
     exit 1
 }
 

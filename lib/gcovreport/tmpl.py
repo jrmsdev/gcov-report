@@ -130,6 +130,7 @@ def html_gcov_attribs (src, gcov):
         s = t.format ()
 
         for kn in gcov.attribs.keys ():
+            atclass = "normal"
             try:
 
                 if kn.startswith ('__'):

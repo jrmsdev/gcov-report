@@ -70,5 +70,4 @@ dist: dist/release.txt
 	@mkdir -vp dist
 	@rm -rf dist/work
 	@$(MAKE) install DESTDIR=dist/work PREFIX=$(PREFIX)
-	@rm -rf dist/work/$(PREFIX)/lib/gcovreport/__pycache__
 	@./scripts/mkdist-tar.sh

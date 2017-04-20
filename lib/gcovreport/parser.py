@@ -32,6 +32,10 @@ class GcovLine:
 class GcovAttribs:
     _d = dict ()
 
+    def __str__ (self):
+        return "{}".format (str (sorted (
+                self._d.items ())).replace ('), ', '\n'))
+
     def get (self, k, default = None):
         return self._d.get (k, default)
 
@@ -57,6 +61,9 @@ class GcovAttribs:
 class Gcov:
     lines = list()
     attribs = GcovAttribs()
+
+    def __str__(self):
+        return "Gcov:{}".format (str (self.attribs))
 
     def newline (self, tmpl, content, lineno = None):
         self.lines.append (GcovLine (tmpl, content, lineno))

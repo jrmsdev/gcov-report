@@ -39,6 +39,8 @@ def write_gcov_html (src, dst, gcov):
             (gcov.attribs.get ('source'), gcov.attribs.get ('__percent_ok'))
     write_html_head (dst, title, 'gcov')
     with open (dst, 'a') as fh:
+        debug.log ("write_gcov_html:", src, dst)
+        debug.log ("write_gcov_html:", gcov)
 
         print (tmpl.html_navbar (), file = fh)
 

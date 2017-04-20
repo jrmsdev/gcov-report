@@ -1,6 +1,6 @@
 from sys import stderr
 
-DEBUG = True
+DEBUG = False
 
 def log(*args):
     if DEBUG:

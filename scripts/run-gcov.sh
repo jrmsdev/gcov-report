@@ -29,6 +29,7 @@ test "x${cc_version}" != "x${gcov_version}" && {
 }
 
 for src in *.c; do
+    echo "run-gcov: ${GCOV_CMD} ${GCOV_ARGS} ${src}" >&2
     ${GCOV_CMD} ${GCOV_ARGS} ${src}
 done
 

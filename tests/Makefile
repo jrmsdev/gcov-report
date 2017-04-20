@@ -8,7 +8,7 @@ COVERAGE_CMD ?=
 
 .PHONY: check
 check: build tests-run
-	@CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
+	CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
 	@../bin/gcov-report.py --version
 	@$(MAKE) gcovhtml COVERAGE_CMD='$(COVERAGE_CMD)'
 	@rm -rf tmpdir

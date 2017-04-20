@@ -1,9 +1,10 @@
 import html
 from os import path
-from . import tmpl, config, version, utils
+from . import tmpl, config, version, utils, debug
 
 
 def write_html_head (out_f, title, div_class):
+    debug.log ("write_html_head:", out_f)
     with open (out_f, 'w') as fh:
 
         t = tmpl.TMPL_HEAD()
@@ -20,6 +21,7 @@ def write_html_head (out_f, title, div_class):
 
 
 def write_html_tail (out_f):
+    debug.log ("write_html_tail:", out_f)
     with open (out_f, 'a') as fh:
         print (tmpl.TMPL_DIV_END().format (), file = fh)
         t = tmpl.TMPL_TAIL()

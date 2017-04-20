@@ -4,7 +4,7 @@ from os import path
 from glob import glob
 from getopt import getopt, GetoptError
 
-from . import config, parser, output, version
+from . import config, parser, output, version, debug
 
 
 class CmdOption:
@@ -137,9 +137,13 @@ def main ():
             elif optn == '--gcovdir' or optn == '-i':
                 config.gcovdir = optv or config.DEFAULT_GCOVDIR
 
-        # -- enable test mode
+        # -- test mode enabled
         if config.test_mode:
             print (cmdname, "test mode enabled")
+
+        # -- debug mode enabled
+        if debug.DEBUG:
+            print (cmdname, "debug mode enabled")
 
         # -- print version and exit
         if flags['version']:

@@ -1,8 +1,168 @@
+class Tmpl:
+    txt = None
+    _d = None
+    _dopts = None
+
+    def __init__ (self):
+        self._d = dict ()
+        self._dopts = list ()
+
+    def format (self):
+        return self.txt.format (**self._d)
+
+    def set (self, opt, val):
+        if opt in self._dopts:
+            raise RuntimeError ("Tmpl data option '%s' already set!" % opt)
+        self._d[opt] = val
+        self._dopts.append (opt)
+
+
+class TMPL_HEAD(Tmpl):
+    txt = '''<!doctype html>
+<html>
+<head>
+    {css}
+    <title>gcov-report - {title}</title>
+</head>
+<body>'''
+
+
+class TMPL_TAIL(Tmpl):
+    txt = '''<footer>
+{doc_name}: {doc_update}<br>
+<a target="_blank"
+   href="{project_url}">gcov-report</a> v{appversion}
+</footer>
+</body>
+</html>'''
+
+
+class TMPL_CODE_NORMAL(Tmpl):
+    txt = '<span class="normal">{lineno:>4}: {content}</span>'
+
+
+class TMPL_CODE_NOEXEC(Tmpl):
+    txt = '<span class="noexec">{lineno:>4}: {content}</span>'
+
+
+class TMPL_CODE_EXEC(Tmpl):
+    txt = '<span class="exec">{lineno:>4}: {content}</span>'
+
+
+class TMPL_GCOV_INFO(Tmpl):
+    txt = '<span class="status info">{content}</span>'
+
+
+class TMPL_GCOV_ATTRIB(Tmpl):
+    txt = '''
+<span class="status_{attr_class}">{attr_key}: {attr_val}</span><br>
+'''
+
+
+class TMPL_LINK(Tmpl):
+    txt = '<a href="{href}">{content}</a>'
+
+
+class TMPL_FILE_INDEX_START(Tmpl):
+    txt = '<ol>'
+
+
+class TMPL_FILE_INDEX_STATUS(Tmpl):
+    txt = '''
+<li class="index_entry">
+    <span class="status_{status}">|{status_info:|>7}|</span>
+    <span>{file_href}</span>
+    <span class="filename">{source}</span>
+</li>
+'''
+
+
+class TMPL_FILE_INDEX_END(Tmpl):
+    txt = '</ol>'
+
+
+class TMPL_GLOBAL_STATUS(Tmpl):
+    txt = '''<p>
+global status: <span class="status_{status}">{percent:.2f}% done</span><br>
+scanned files: {filesno}
+</p>
+'''
+
+
+class TMPL_DIV_START(Tmpl):
+    txt = '<div class="div_{div_class}">'
+
+
+class TMPL_DIV_END(Tmpl):
+    txt = '</div>'
+
+
 #
-# -- HTML templates
+# -- html helpers
 #
 
-CSS = '''<style>
+
+def html_link (href, content):
+    t = TMPL_LINK()
+    t.set ('href', "%s.html" % href)
+    t.set ('content', content)
+    return t.format ()
+
+
+def html_navbar ():
+    s = '<div class="navbar">'
+    t = TMPL_LINK()
+    t.set ('href', './index.html')
+    t.set ('content', '<b>index</b>')
+    s = t.format ()
+    return "%s</div>" % s
+
+
+def html_gcov_attribs (src, gcov):
+    s = "[no attribs]" + src
+    atclass = "normal"
+
+    if len (gcov.attribs) > 0:
+        t = TMPL_GCOV_ATTRIB()
+        t.set ('attr_class', atclass)
+        t.set ('attr_key', 'gcov')
+        t.set ('attr_val', src)
+        s = t.format ()
+
+        for kn in gcov.attribs.keys ():
+            try:
+
+                if kn.startswith ('__'):
+                    continue
+
+                elif kn == "source.lines.noexec":
+                    if 0 != int (gcov.attribs.get (kn)):
+                        atclass = "error"
+
+                elif kn == "status":
+                    atclass = gcov.attribs.get (kn)
+
+                elif kn == "status.info":
+                    atclass = gcov.attribs.get ('status', atclass)
+
+                elif kn == "source":
+                    atclass = "info"
+
+                t = TMPL_GCOV_ATTRIB()
+                t.set ('attr_class', atclass)
+                t.set ('attr_key', kn)
+                t.set ('attr_val', gcov.attribs.get (kn))
+                s += t.format ()
+
+            except IndexError as e: # pragma: no cover
+
+                print ("gcov_attribs:", src, "IndexError:", str (e))
+
+    return s
+
+
+CSS = '''
+<style>
     body {
         background-color: #000000;
         color: #666666;
@@ -59,104 +219,3 @@ CSS = '''<style>
         margin-bottom: 0.3em;
     }
     </style>'''
-
-TMPL_HEAD = '''<!doctype html>
-<html>
-<head>
-    {css}
-    <title>gcov-report - {title}</title>
-</head>
-<body>'''
-
-TMPL_TAIL = '''<footer>
-{doc_name}: {doc_update}<br>
-<a target="_blank"
-   href="{project_url}">gcov-report</a> v{appversion}
-</footer>
-</body>
-</html>'''
-
-TMPL_CODE_NORMAL = '<span class="normal">{lineno:>4}: {content}</span>'
-
-TMPL_CODE_NOEXEC = '<span class="noexec">{lineno:>4}: {content}</span>'
-
-TMPL_CODE_EXEC = '<span class="exec">{lineno:>4}: {content}</span>'
-
-TMPL_GCOV_INFO = '<span class="status info">{content}</span>'
-
-TMPL_GCOV_ATTRIB = '''
-<span class="status_{attr_class}">{attr_key}: {attr_val}</span><br>
-'''
-
-TMPL_LINK = '<a href="{href}">{content}</a>'
-
-TMPL_FILE_INDEX_START = '<ol>'
-TMPL_FILE_INDEX_STATUS = '''
-<li class="index_entry">
-    <span class="status_{status}">|{status_info:|>7}|</span>
-    <span>{file_href}</span>
-    <span class="filename">{source}</span>
-</li>
-'''
-TMPL_FILE_INDEX_END = '</ol>'
-
-TMPL_GLOBAL_STATUS = '''<p>
-global status: <span class="status_{status}">{percent:.2f}% done</span><br>
-scanned files: {filesno}
-</p>
-'''
-
-TMPL_DIV_START = '<div class="div_{div_class}">'
-
-TMPL_DIV_END = '</div>'
-
-#
-# -- html helpers
-#
-
-def html_link (href, content):
-    return TMPL_LINK.format (href = href + '.html', content = content)
-
-
-def html_navbar ():
-    s = '<div class="navbar">'
-    s += TMPL_LINK.format (href = './index.html', content = '<b>index</b>')
-    return "%s</div>" % s
-
-
-def html_gcov_attribs (src, gcov):
-    s = "[no attribs]" + src
-    attr_found = False
-    for k in sorted (gcov.keys ()):
-        if k.startswith ('attr.'):
-            atclass = "normal"
-            if not attr_found:
-                attr_found = True
-                s = TMPL_GCOV_ATTRIB.format (
-                        attr_class = atclass, attr_key = 'gcov', attr_val = src)
-            try:
-                kn = '.'.join (k.split ('.')[1:])
-                kv = gcov.get ('attr.' + kn, None)
-
-                if kn.startswith ('__'):
-                    continue
-
-                elif kn == "source.lines.noexec":
-                    if 0 != int (kv):
-                        atclass = "error"
-
-                elif kn == "status":
-                    atclass = kv
-
-                elif kn == "status.info":
-                    atclass = gcov.get ('attr.status', atclass)
-
-                elif kn == "source":
-                    atclass = "info"
-
-                s += TMPL_GCOV_ATTRIB.format (
-                        attr_class = atclass, attr_key = kn, attr_val = kv)
-            except IndexError as e: # pragma: no cover
-                print ("gcov_attribs:", src, "IndexError:", str (e))
-
-    return s

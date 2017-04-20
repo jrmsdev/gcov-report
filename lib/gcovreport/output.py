@@ -5,30 +5,37 @@ from . import tmpl, config, version, utils
 
 def write_html_head (out_f, title, div_class):
     with open (out_f, 'w') as fh:
-        print (tmpl.TMPL_HEAD.format (title = title,
-                css = tmpl.CSS), file = fh)
-        print (tmpl.TMPL_DIV_START.format (div_class = div_class), file = fh)
+
+        t = tmpl.TMPL_HEAD()
+        t.set ('title', title)
+        t.set ('css', tmpl.CSS)
+        print ("write_html_head TMPL_HEAD:", t)
+        print (t.format (), file = fh)
+
+        t = tmpl.TMPL_DIV_START()
+        t.set ('div_class', div_class)
+        print (t.format (), file = fh)
+
         fh.flush ()
         fh.close ()
 
 
 def write_html_tail (out_f):
-    fmt = {
-        'appversion': version.get_string (),
-        'doc_name': out_f.replace (config.htmldir + '/', '', 1),
-        'doc_update': utils.asctime (),
-        'project_url': version.project_url (),
-    }
     with open (out_f, 'a') as fh:
-        print (tmpl.TMPL_DIV_END, file = fh)
-        print (tmpl.TMPL_TAIL.format (**fmt), file = fh)
+        print (tmpl.TMPL_DIV_END().format (), file = fh)
+        t = tmpl.TMPL_TAIL()
+        t.set ('appversion', version.get_string ())
+        t.set ('doc_name', out_f.replace (config.htmldir + '/', '', 1))
+        t.set ('doc_update', utils.asctime ())
+        t.set ('project_url', version.project_url ())
+        print (t.format (), file = fh)
         fh.flush ()
         fh.close ()
 
 
 def write_gcov_html (src, dst, gcov):
     title = '%s %.2f%% done' % \
-            (gcov.get ('attr.source'), gcov.get ('attr.__percent_ok'))
+            (gcov.attribs.get ('source'), gcov.attribs.get ('__percent_ok'))
     write_html_head (dst, title, 'gcov')
     with open (dst, 'a') as fh:
 
@@ -39,8 +46,8 @@ def write_gcov_html (src, dst, gcov):
         print ('</p>', file = fh)
 
         print ('<pre>', file = fh)
-        for line in gcov['lines']:
-            print (line['tmpl'].format (**line['data']), file = fh)
+        for line in gcov.lines:
+            print (line.format (), file = fh)
         print ('</pre>', file = fh)
 
         fh.flush ()
@@ -60,7 +67,7 @@ def write_index (gcovdb):
     with open (dst, 'a') as fh:
 
         for gcov in gcovdb:
-            percent_total += gcov.get ('attr.__percent_ok', 0)
+            percent_total += gcov.attribs.get ('__percent_ok', 0)
         total_ok = (percent_total * 100) / total_expect
 
         if total_ok <= config.percent_error:
@@ -70,22 +77,26 @@ def write_index (gcovdb):
 
         write_html_head (dst, '%.2f%% done' % total_ok, 'index')
 
-        print (tmpl.TMPL_GLOBAL_STATUS.format (filesno = gcov_count,
-                percent = total_ok, status = total_status), file = fh)
+        t = tmpl.TMPL_GLOBAL_STATUS()
+        t.set ('filesno', gcov_count)
+        t.set ('percent', total_ok)
+        t.set ('status', total_status)
+        print (t.format (), file = fh)
 
-        print (tmpl.TMPL_FILE_INDEX_START, file = fh)
+        print (tmpl.TMPL_FILE_INDEX_START().format (), file = fh)
 
         for gcov in gcovdb:
-            attr_src = gcov.get ('attr.source')
+            attr_src = gcov.attribs.get ('source')
 
-            print (tmpl.TMPL_FILE_INDEX_STATUS.format (
-                    source = attr_src,
-                    file_href = tmpl.html_link (path.basename (attr_src),
-                            html.escape ('>>>')),
-                    status_info = gcov.get ('attr.status.info', None),
-                    status = gcov.get ('attr.status', None)), file = fh)
+            t = tmpl.TMPL_FILE_INDEX_STATUS()
+            t.set ('source', attr_src)
+            t.set ('file_href', tmpl.html_link (path.basename (attr_src),
+                            html.escape ('>>>')))
+            t.set ('status_info', gcov.attribs.get ('status.info', None))
+            t.set ('status', gcov.attribs.get ('status', None))
+            print (t.format (), file = fh)
 
-        print (tmpl.TMPL_FILE_INDEX_END, file = fh)
+        print (tmpl.TMPL_FILE_INDEX_END().format (), file = fh)
 
         fh.flush ()
         fh.close ()

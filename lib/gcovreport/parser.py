@@ -13,54 +13,90 @@ re_gcov_exec = re.compile ('^\s*\d*:\s*(\d*):(.*)$')
 re_gcov_info = re.compile ('^(\w+\s.*)$')
 
 
-def parse_gcov (src):
+class GcovLine:
+    tmpl = None
 
-    def new_code_line (gcov, tmpl, lineno, content):
-        gcov['lines'].append ({
-            'tmpl': tmpl,
-            'data': {'lineno': lineno, 'content': content},
-        })
+    class data:
+        lineno = None
+        content = None
 
-    def new_line (gcov, tmpl, content):
-        gcov['lines'].append ({'tmpl': tmpl, 'data': {'content': content}})
+    def __init__ (self, tmplclass, content, lineno):
+        self.tmpl = tmplclass()
+        self.tmpl.set ('lineno', lineno)
+        self.tmpl.set ('content', content)
 
-    def update_attribs (gcov, attr):
-        for k in attr.keys ():
-            gcov['attr.' + k] = attr.get (k)
+    def format (self):
+        return self.tmpl.format ()
 
-    def gcov_status (attr):
-        lines = attr.get ('source.lines', 0)
-        lines_normal = attr.get ('source.lines.normal', 0)
-        lines_exec = attr.get ('source.lines.exec', 0)
-        lines_noexec = attr.get ('source.lines.noexec', 0)
+
+class GcovAttribs:
+    _d = dict ()
+
+    def get (self, k, default = None):
+        return self._d.get (k, default)
+
+    def __getitem__ (self, k, default = None):
+        return self.get (k, default)
+
+    def set (self, k, v):
+        self._d[k] = v
+
+    def __setitem__ (self, k, v):
+        self.set (k, v)
+
+    def update (self, attribs):
+        self._d.update (attribs)
+
+    def keys (self):
+        return sorted (self._d.keys ())
+
+    def __len__ (self):
+        return len (self._d)
+
+
+class Gcov:
+    lines = list()
+    attribs = GcovAttribs()
+
+    def newline (self, tmpl, content, lineno = None):
+        self.lines.append (GcovLine (tmpl, content, lineno))
+
+    def status (self):
+        lines = self.attribs.get ('source.lines', 0)
+        lines_normal = self.attribs.get ('source.lines.normal', 0)
+        lines_exec = self.attribs.get ('source.lines.exec', 0)
+        lines_noexec = self.attribs.get ('source.lines.noexec', 0)
 
         if lines != (lines_normal + lines_exec + lines_noexec): # pragma: no cover
-            attr['status.info'] = "lines count error"
-            attr['status'] = "error"
-            attr['status.percent_ok'] = 0
+            self.attribs.set ('status.info', "lines count error")
+            self.attribs.set ('status', "error")
+            self.attribs.set ('status.percent_ok', 0)
         else:
             percent_ok = ((lines_normal + lines_exec) * 100) / lines
-            attr['status.info'] = "{:.2f}%".format (percent_ok)
+            self.attribs.set ('status.info', "{:.2f}%".format (percent_ok))
             if percent_ok <= config.percent_error:
-                attr['status'] = 'error'
+                self.attribs.set ('status', 'error')
             elif percent_ok <= config.percent_warn:
-                attr['status'] = 'warn'
-            attr['__percent_ok'] = percent_ok
+                self.attribs.set ('status', 'warn')
+            self.attribs.set ('__percent_ok', percent_ok)
 
+
+def parse_gcov (src):
     dst = path.join (config.htmldir, src)
     dst = dst.replace('.gcov', '.html')
-    gcov = dict(lines = list (), status_info = '')
 
-    # XXX: not sure why yet but it needs to start as 1 instead of 0
-    gcov_lines = 1
-    attr = {
+    gcov = Gcov()
+    gcov.attribs.update ({
         'source.lines': 0,
         'source.lines.normal': 0,
         'source.lines.exec': 0,
         'source.lines.noexec': 0,
         'status': 'ok',
         'status.info': '',
-    }
+    })
+
+    # XXX: not sure why yet but it needs to start as 1 instead of 0
+    gcov_lines = 1
 
     print ("parse:", src, "->", dst)
 
@@ -72,45 +108,45 @@ def parse_gcov (src):
 
             m = re_gcov_attr_source.match (line)
             if m:
-                gcov['attr.source'] = html.escape (m.group (1))
+                gcov.attribs.set ('source', html.escape (m.group (1)))
                 continue
 
             m = re_gcov_attr_runs.match (line)
             if m:
-                gcov['attr.runs'] = html.escape (m.group (1))
+                gcov.attribs.set ('runs', html.escape (m.group (1)))
                 continue
 
             m = re_gcov_normal.match (line)
             if m:
                 idx = m.group (1)
                 if idx != "0":
-                    attr['source.lines'] += 1
-                    attr['source.lines.normal'] += 1
-                    new_code_line (gcov, tmpl.TMPL_CODE_NORMAL, idx,
-                            html.escape (m.group (2)))
+                    gcov.attribs['source.lines'] += 1
+                    gcov.attribs['source.lines.normal'] += 1
+                    gcov.newline (tmpl.TMPL_CODE_NORMAL,
+                            html.escape (m.group (2)), idx)
                 continue
 
             m = re_gcov_noexec.match (line)
             if m:
-                attr['source.lines'] += 1
-                attr['source.lines.noexec'] += 1
+                gcov.attribs['source.lines'] += 1
+                gcov.attribs['source.lines.noexec'] += 1
                 idx = m.group (1)
-                new_code_line (gcov, tmpl.TMPL_CODE_NOEXEC, idx,
-                        html.escape (m.group (2)))
+                gcov.newline (tmpl.TMPL_CODE_NOEXEC,
+                        html.escape (m.group (2)), idx)
                 continue
 
             m = re_gcov_exec.match (line)
             if m:
-                attr['source.lines'] += 1
-                attr['source.lines.exec'] += 1
+                gcov.attribs['source.lines'] += 1
+                gcov.attribs['source.lines.exec'] += 1
                 idx = m.group (1)
-                new_code_line (gcov, tmpl.TMPL_CODE_EXEC, idx,
-                        html.escape (m.group (2)))
+                gcov.newline (tmpl.TMPL_CODE_EXEC,
+                        html.escape (m.group (2)), idx)
                 continue
 
             m = re_gcov_info.match (line)
             if m:
-                new_line (gcov, tmpl.TMPL_GCOV_INFO, html.escape (m.group (1)))
+                gcov.newline (tmpl.TMPL_GCOV_INFO, html.escape (m.group (1)))
                 continue
 
             if m is None: # pragma: no cover
@@ -118,8 +154,7 @@ def parse_gcov (src):
 
         fh.close ()
 
-    gcov_status (attr)
-    update_attribs (gcov, attr)
+    gcov.status ()
     output.write_gcov_html (src, dst, gcov)
 
     return gcov

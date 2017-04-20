@@ -58,7 +58,7 @@
         margin-bottom: 0.3em;
     }
     </style>
-    <title>gcov-report - t001_noexec.c 92.86% done</title>
+    <title>gcov-report - t001_noexec.c 93.75% done</title>
 </head>
 <body>
 <div class="div_gcov">
@@ -71,39 +71,41 @@
 
 <span class="status_info">source: t001_noexec.c</span><br>
 
-<span class="status_normal">source.lines: 14</span><br>
+<span class="status_normal">source.lines: 16</span><br>
 
 <span class="status_normal">source.lines.exec: 6</span><br>
 
 <span class="status_error">source.lines.noexec: 1</span><br>
 
-<span class="status_normal">source.lines.normal: 7</span><br>
+<span class="status_normal">source.lines.normal: 9</span><br>
 
 <span class="status_warn">status: warn</span><br>
 
-<span class="status_warn">status.info: 92.86%</span><br>
+<span class="status_warn">status.info: 93.75%</span><br>
 
 </p>
 <pre>
+<span class="normal">   1: /* t001_noexec.c */</span>
+<span class="normal">   2: </span>
 <span class="status info">function check_val called 1 returned 100% blocks executed 75%</span>
-<span class="exec">   1: static int check_val (int v)</span>
-<span class="normal">   2: {</span>
-<span class="exec">   3:     if (v == 0)</span>
+<span class="exec">   3: static int check_val (int v)</span>
+<span class="normal">   4: {</span>
+<span class="exec">   5:     if (v == 0)</span>
 <span class="status info">branch  0 taken 100% (fallthrough)</span>
 <span class="status info">branch  1 taken 0%</span>
-<span class="exec">   4:         return (0);</span>
-<span class="normal">   5:     else</span>
-<span class="noexec">   6:         return (1);</span>
-<span class="normal">   7: }</span>
-<span class="normal">   8: </span>
-<span class="normal">   9: int</span>
+<span class="exec">   6:         return (0);</span>
+<span class="normal">   7:     else</span>
+<span class="noexec">   8:         return (1);</span>
+<span class="normal">   9: }</span>
+<span class="normal">  10: </span>
+<span class="normal">  11: int</span>
 <span class="status info">function main called 1 returned 100% blocks executed 100%</span>
-<span class="exec">  10: main (void)</span>
-<span class="normal">  11: {</span>
-<span class="exec">  12:     check_val (0);</span>
+<span class="exec">  12: main (void)</span>
+<span class="normal">  13: {</span>
+<span class="exec">  14:     check_val (0);</span>
 <span class="status info">call    0 returned 100%</span>
-<span class="exec">  13:     return (0);</span>
-<span class="normal">  14: }</span>
+<span class="exec">  15:     return (0);</span>
+<span class="normal">  16: }</span>
 </pre>
 </div>
 <footer>

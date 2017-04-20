@@ -131,33 +131,28 @@ def html_gcov_attribs (src, gcov):
 
         for kn in gcov.attribs.keys ():
             atclass = "normal"
-            try:
 
-                if kn.startswith ('__'):
-                    continue
+            if kn.startswith ('__'):
+                continue
 
-                elif kn == "source.lines.noexec":
-                    if 0 != int (gcov.attribs.get (kn)):
-                        atclass = "error"
+            elif kn == "source.lines.noexec":
+                if 0 != int (gcov.attribs.get (kn)):
+                    atclass = "error"
 
-                elif kn == "status":
-                    atclass = gcov.attribs.get (kn)
+            elif kn == "status":
+                atclass = gcov.attribs.get (kn)
 
-                elif kn == "status.info":
-                    atclass = gcov.attribs.get ('status', atclass)
+            elif kn == "status.info":
+                atclass = gcov.attribs.get ('status', atclass)
 
-                elif kn == "source":
-                    atclass = "info"
+            elif kn == "source":
+                atclass = "info"
 
-                t = TMPL_GCOV_ATTRIB()
-                t.set ('attr_class', atclass)
-                t.set ('attr_key', kn)
-                t.set ('attr_val', gcov.attribs.get (kn))
-                s += t.format ()
-
-            except IndexError as e: # pragma: no cover
-
-                print ("gcov_attribs:", src, "IndexError:", str (e))
+            t = TMPL_GCOV_ATTRIB()
+            t.set ('attr_class', atclass)
+            t.set ('attr_key', kn)
+            t.set ('attr_val', gcov.attribs.get (kn))
+            s += t.format ()
 
     return s
 

@@ -27,7 +27,7 @@ shrun_debug "TMPDIR: $TMPDIR"
 run_custom_gcov_report() {
     local covcmd=""
     if test "x$COVCMD" != "x"; then
-        covcmd="${INITD}/$COVCMD"
+        covcmd="$COVCMD"
         export COVERAGE_FILE=${INITD}/.coverage
     fi
     shrun_debug "RUN: $covcmd $GCOV_REPORT $@"

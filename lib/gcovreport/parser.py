@@ -65,9 +65,10 @@ class Gcov:
     lines = None
     attribs = None
 
-    def __init__ (self):
+    def __init__ (self, filename):
         self.lines = list()
         self.attribs = GcovAttribs()
+        self.attribs.set ('gcov', filename)
 
     def __str__(self):
         return "Gcov:{}".format (str (self.attribs))
@@ -99,7 +100,7 @@ def parse_gcov (src):
     dst = path.join (config.htmldir, src)
     dst = dst.replace('.gcov', '.html')
 
-    gcov = Gcov()
+    gcov = Gcov (src)
     gcov.attribs.update ({
         'source.lines': 0,
         'source.lines.normal': 0,

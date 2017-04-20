@@ -71,7 +71,7 @@ class TMPL_FILE_INDEX_STATUS(Tmpl):
     txt = '''
 <li class="index_entry">
     <span class="status_{status}">|{status_info:|>7}|</span>
-    <span>{file_href}</span>
+    <span>{file_link}</span>
     <span class="filename">{source}</span>
 </li>
 '''
@@ -119,16 +119,12 @@ def html_navbar ():
 
 
 def html_gcov_attribs (src, gcov):
-    s = "[no attribs]" + src
+    s = "[no attribs:'" + src + "']"
     atclass = "normal"
 
     if len (gcov.attribs) > 0:
-        t = TMPL_GCOV_ATTRIB()
-        t.set ('attr_class', atclass)
-        t.set ('attr_key', 'gcov')
-        t.set ('attr_val', src)
-        s = t.format ()
 
+        s = ""
         for kn in gcov.attribs.keys ():
             atclass = "normal"
 

@@ -38,6 +38,7 @@ def write_gcov_html (src, dst, gcov):
     title = '%s %.2f%% done' % \
             (gcov.attribs.get ('source'), gcov.attribs.get ('__percent_ok'))
     write_html_head (dst, title, 'gcov')
+
     with open (dst, 'a') as fh:
         debug.log ("write_gcov_html:", src, dst)
         debug.log ("write_gcov_html:", gcov)
@@ -55,6 +56,7 @@ def write_gcov_html (src, dst, gcov):
 
         fh.flush ()
         fh.close ()
+
     write_html_tail (dst)
 
 
@@ -90,12 +92,17 @@ def write_index (gcovdb):
         print (tmpl.TMPL_FILE_INDEX_START().format (), file = fh)
 
         for gcov in gcovdb:
-            attr_src = gcov.attribs.get ('source')
+
+            gcov_src = path.basename (gcov.attribs.get ('gcov'))
+            debug.log ("write_index gcov src:", gcov_src)
 
             t = tmpl.TMPL_FILE_INDEX_STATUS()
-            t.set ('source', attr_src)
-            t.set ('file_href', tmpl.html_link (path.basename (attr_src),
-                            html.escape ('>>>')))
+            t.set ('source', html.escape (gcov.attribs.get ('source')))
+            t.set ('file_link', tmpl.html_link (
+                    html.escape (
+                        gcov_src.replace('.gcov', '').replace('#', '%23')
+                    ),
+                    html.escape ('>>>')))
             t.set ('status_info', gcov.attribs.get ('status.info'))
             t.set ('status', gcov.attribs.get ('status'))
             print (t.format (), file = fh)

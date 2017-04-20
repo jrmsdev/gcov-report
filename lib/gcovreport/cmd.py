@@ -6,34 +6,49 @@ from getopt import getopt, GetoptError
 
 from . import config, parser, output, version
 
+
+class CmdOption:
+    long = None
+    short = None
+    default = None
+    help = None
+
+    def __init__ (self, long = None, short = None, default = None, help = None):
+        self.long = long
+        self.short = short
+        self.default = default
+        self.help = help
+
+
+
 __cmdopts = [
     # options name format as in help(getops) documentation
-    {
-        'long': 'version', 'short': 'V',
-        'default': None,
-        'help': 'show version and exit',
-    },
-    {
-        'long': 'help', 'short': 'h',
-        'default': None,
-        'help': 'show this help message',
-    },
-    {
-        'long': 'htmldir=', 'short': 'o:',
-        'default': config.DEFAULT_HTMLDIR,
-        'help': 'html/output directory path',
-    },
-    {
-        'long': 'gcovdir=', 'short': 'i:',
-        'default': config.DEFAULT_GCOVDIR,
-        'help': 'input directory path containing *.gcov files to parse',
-    },
+    CmdOption (
+        long = 'version', short = 'V',
+        default = None,
+        help = 'show version and exit',
+    ),
+    CmdOption (
+        long = 'help', short = 'h',
+        default = None,
+        help = 'show this help message',
+    ),
+    CmdOption (
+        long = 'htmldir=', short = 'o:',
+        default = config.DEFAULT_HTMLDIR,
+        help = 'html/output directory path',
+    ),
+    CmdOption (
+        long = 'gcovdir=', short = 'i:',
+        default = config.DEFAULT_GCOVDIR,
+        help = 'input directory path containing *.gcov files to parse',
+    ),
     # hidden option (only used for internal tests)
-    {
-        'long': 'test-mode', 'short': None,
-        'default': None,
-        'help': None,
-    },
+    CmdOption (
+        long = 'test-mode', short = None,
+        default = None,
+        help = None,
+    ),
 ]
 
 
@@ -46,24 +61,24 @@ def main ():
         print (cmdname, " (v", version.get_string (), ") options:", sep = '')
 
         for opt in __cmdopts:
-            if opt['help'] is None:
+            if opt.help is None:
                 continue
 
             print ("  ", end = '') # indent
 
-            if opt['short'] is not None:
-                print ("-{}".format (opt['short'].replace (':', '')), end = '')
-                if opt['long'] is not None:
+            if opt.short is not None:
+                print ("-{}".format (opt.short.replace (':', '')), end = '')
+                if opt.long is not None:
                     print(", ", end = '')
 
-            if opt['long'] is not None:
-                print ("--", opt['long'], sep = '', end = '')
-                if opt['default'] is not None:
-                    print ("'", opt['default'], "' *", sep = '', end = '')
+            if opt.long is not None:
+                print ("--", opt.long, sep = '', end = '')
+                if opt.default is not None:
+                    print ("'", opt.default, "' *", sep = '', end = '')
 
-            if opt['help'] is not None:
+            if opt.help is not None:
                 print ()
-                print ("      ", opt['help'], sep = '', end = '')
+                print ("      ", opt.help, sep = '', end = '')
             print ()
 
         print ()
@@ -83,10 +98,10 @@ def main ():
             shortopts = ""
             longopts = list ()
             for opt in __cmdopts:
-                if opt['long'] is not None:
-                    longopts.append (opt['long'])
-                if opt['short'] is not None:
-                    shortopts += str (opt['short'])
+                if opt.long is not None:
+                    longopts.append (opt.long)
+                if opt.short is not None:
+                    shortopts += str (opt.short)
             return getopt (sys.argv[1:], shortopts, longopts)
 
         try:

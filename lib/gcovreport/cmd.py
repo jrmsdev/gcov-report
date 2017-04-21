@@ -4,7 +4,9 @@ from os import path
 from glob import glob
 from getopt import getopt, GetoptError
 
-from . import config, parser, version, debug, htmlx
+from . import config, version, debug, htmlx
+from .gcov import parser
+
 
 class CmdOption:
     long = None

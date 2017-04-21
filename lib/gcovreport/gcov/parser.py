@@ -2,8 +2,8 @@ import re
 import html
 from os import path
 
-from . import config, debug
-from .htmlx import  tmpl, output
+from .. import config, debug
+from ..htmlx import  tmpl, output
 
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
 re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')

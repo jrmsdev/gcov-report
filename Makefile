@@ -26,6 +26,8 @@ installdirs:
 	@mkdir -vp $(DEST_LIBDIR)/__pycache__
 	@mkdir -vp $(DEST_LIBDIR)/htmlx
 	@mkdir -vp $(DEST_LIBDIR)/htmlx/__pycache__
+	@mkdir -vp $(DEST_LIBDIR)/gcov
+	@mkdir -vp $(DEST_LIBDIR)/gcov/__pycache__
 
 
 .PHONY: install
@@ -37,6 +39,9 @@ install: build installdirs dist/release.txt
 	@$(INSTALL_F) lib/gcovreport/htmlx/*.py $(DEST_LIBDIR)/htmlx
 	@$(INSTALL_F) lib/gcovreport/htmlx/__pycache__/*.pyc \
 		$(DEST_LIBDIR)/htmlx/__pycache__
+	@$(INSTALL_F) lib/gcovreport/gcov/*.py $(DEST_LIBDIR)/gcov
+	@$(INSTALL_F) lib/gcovreport/gcov/__pycache__/*.pyc \
+		$(DEST_LIBDIR)/gcov/__pycache__
 	@$(INSTALL_F) LICENSE $(DEST_LICDIR)
 	@$(INSTALL_F) dist/release.txt $(DEST_LIBDIR)
 

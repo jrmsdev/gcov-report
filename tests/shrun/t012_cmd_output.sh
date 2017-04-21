@@ -11,7 +11,7 @@ SHRUN_DEBUG=false
 mkdir -p $TMPDIR || exit 1
 
 #~ export GCOV_REPORT_DEBUG=1
-run_custom_gcov_report --gcovdir=${TESTDATA}/gcovs --htmldir=${TMPDIR}
+run_custom_gcov_report --gcovdir=${TESTDATA}/gcovs --htmldir=${TMPDIR} --test-mode
 
 echo "HTML FILES:"
 (cd ${TMPDIR} && ls *.html | sort)

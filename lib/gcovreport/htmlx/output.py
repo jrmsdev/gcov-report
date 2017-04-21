@@ -42,7 +42,7 @@ def write_gcov_html (src, dst, gcov):
 
     with open (dst, 'a') as fh:
         debug.log ("write_gcov_html:", src, dst)
-        debug.log ("write_gcov_html:", gcov)
+        debug.log ("write_gcov_html:", repr (gcov))
 
         print (tmpl.html_navbar (), file = fh)
 
@@ -101,4 +101,4 @@ def write_index (gcovdb, dbstat):
         fh.close ()
 
     write_html_tail (dst)
-    print ("index:", path.basename (dst))
+    #~ print ("index:", path.basename (dst))

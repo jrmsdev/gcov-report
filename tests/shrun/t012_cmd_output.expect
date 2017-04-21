@@ -1,10 +1,14 @@
 shrun/t012_cmd_output
-parse: ^#lib#t003_relpath.c.gcov -> ^#lib#t003_relpath.c.html
-parse: t000_main.c.gcov -> t000_main.c.html
-parse: t001_noexec.c.gcov -> t001_noexec.c.html
-parse: t002_noexec_error.c.gcov -> t002_noexec_error.c.html
-index: index.html
-got: 361.93% expect: 400% ok: 90.48% status: warn
+gcov-report.py test mode enabled
+gcov-report.py vTEST_MODE:version.get_string
+source file                                     lines  noexec status     done
+
+../lib/t003_relpath.c                            7      0      ok     100.00%
+t000_main.c                                      7      0      ok     100.00%
+t001_noexec.c                                    16     1      warn    93.75%
+t002_noexec_error.c                              22     7      error   68.18%
+
+                                                               warn    90.48%
 HTML FILES:
 ^#lib#t003_relpath.c.html
 index.html

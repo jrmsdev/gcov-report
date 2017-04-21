@@ -45,7 +45,7 @@ uninstall:
 
 
 .PHONY: check
-check: build
+check:
 	@$(MAKE) -C tests check
 
 

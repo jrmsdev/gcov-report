@@ -10,7 +10,7 @@ VENVDIR ?= $(PREFIX)/venv.py3/gcov-report
 
 .PHONY: check
 check: build tests-run
-	CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null
+	@CC=$(CC) GCOV=$(GCOV) ../scripts/run-gcov.sh >/dev/null 2>/dev/null
 	@../bin/gcov-report.py --version
 	@$(MAKE) gcovhtml COVERAGE_CMD='$(COVERAGE_CMD)'
 	@rm -rf tmpdir
@@ -43,14 +43,14 @@ tests-run: $(TESTS_RUN)
 
 
 .test.run:
-	./$< >$@
+	@./$< >$@
 
 
 .PHONY: gcovhtml
 gcovhtml:
 	@rm -rf gcovhtml
 	@mkdir -p gcovhtml
-	@$(COVERAGE_CMD) ../bin/gcov-report.py --test-mode
+	@$(COVERAGE_CMD) ../bin/gcov-report.py --test-mode >/dev/null
 
 
 .PHONY: clean

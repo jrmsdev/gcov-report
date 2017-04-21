@@ -70,8 +70,17 @@ class Gcov:
         self.attribs = GcovAttribs()
         self.attribs.set ('gcov', filename)
 
+    def __repr__(self):
+        return "<Gcov{}>".format (str (self.attribs))
+
     def __str__(self):
-        return "Gcov:{}".format (str (self.attribs))
+        return "{:48s} {:<6d} {:<6d} {:<5s} {:>8s}".format (
+            self.attribs.get ('source'),
+            self.attribs.get ('source.lines'),
+            self.attribs.get ('source.lines.noexec'),
+            self.attribs.get ('status'),
+            self.attribs.get ('status.info'),
+        )
 
     def newline (self, tmpl, content, lineno = None):
         self.lines.append (GcovLine (tmpl, content, lineno))
@@ -115,7 +124,7 @@ def parse_gcov (src):
     # XXX: not sure why yet but it needs to start as 1 instead of 0
     gcov_lines = 1
 
-    print ("parse:", path.basename (src), "->", path.basename (dst))
+    #~ print ("parse:", path.basename (src), "->", path.basename (dst))
 
     with open (src, 'r') as fh:
         for line in fh.readlines ():

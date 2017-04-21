@@ -56,7 +56,7 @@ def main ():
     cmdname = path.basename (sys.argv[0])
 
     def usage ():
-        print (cmdname, " v", version.get_string (), "", sep = '')
+        print (cmdname, " v", version.get_string (), sep = '')
         print ()
         print ("{} [-h|-V] [options]".format (cmdname))
 
@@ -225,9 +225,19 @@ def main ():
     dbstat = gcovdb_status (gcovdb)
     htmlx.output.write_index (gcovdb, dbstat)
 
-    #~ for i in gcovdb:
-        #~ print (i)
+    print (cmdname, " v", version.get_string (), sep = '')
 
-    print (str (dbstat))
+    print ("{:47s} {:6s} {:6s} {:5s} {:>8s}".format (
+        "source file", "lines", "noexec", "status", "done",
+    ))
+    print ()
+
+    for gcov in gcovdb:
+        print (str (gcov))
+
+    print ()
+    print ("{:<62} {:7s} {:.2f}%".format (
+            "", dbstat.total_status, dbstat.total_ok))
+    #~ print ("global percent", str (dbstat))
 
     return 0

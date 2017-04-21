@@ -2,7 +2,7 @@ from os import path
 from . import config
 
 VMAJOR = 0
-VMINOR = 7
+VMINOR = 8
 VPATCH = 0
 
 def __string ():

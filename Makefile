@@ -4,13 +4,14 @@ INSTALL_F := install -v -m 0444
 DEST_BINDIR := $(DESTDIR)$(PREFIX)/bin
 DEST_LIBDIR := $(DESTDIR)$(PREFIX)/lib/gcovreport
 DEST_LICDIR := $(DESTDIR)$(PREFIX)/share/licenses/gcov-report
-PYCMD ?= python3
+
 VENVDIR ?= $(PREFIX)/venv.py3/gcov-report
+PYCMD ?= python3
 
 
 .PHONY: build
 build:
-	@python3 -m compileall lib/gcovreport
+	@$(PYCMD) -m compileall lib/gcovreport
 
 
 .PHONY: clean
@@ -23,25 +24,17 @@ clean:
 .PHONY: installdirs
 installdirs:
 	@mkdir -vp $(DEST_BINDIR) $(DEST_LIBDIR) $(DEST_LICDIR)
-	@mkdir -vp $(DEST_LIBDIR)/__pycache__
 	@mkdir -vp $(DEST_LIBDIR)/htmlx
-	@mkdir -vp $(DEST_LIBDIR)/htmlx/__pycache__
 	@mkdir -vp $(DEST_LIBDIR)/gcov
-	@mkdir -vp $(DEST_LIBDIR)/gcov/__pycache__
 
 
 .PHONY: install
 install: build installdirs dist/release.txt
 	@$(INSTALL_EXE) bin/gcov-report.py $(DEST_BINDIR)/gcov-report
 	@$(INSTALL_F) lib/gcovreport/*.py $(DEST_LIBDIR)
-	@$(INSTALL_F) lib/gcovreport/__pycache__/*.pyc \
-		$(DEST_LIBDIR)/__pycache__
 	@$(INSTALL_F) lib/gcovreport/htmlx/*.py $(DEST_LIBDIR)/htmlx
-	@$(INSTALL_F) lib/gcovreport/htmlx/__pycache__/*.pyc \
-		$(DEST_LIBDIR)/htmlx/__pycache__
 	@$(INSTALL_F) lib/gcovreport/gcov/*.py $(DEST_LIBDIR)/gcov
-	@$(INSTALL_F) lib/gcovreport/gcov/__pycache__/*.pyc \
-		$(DEST_LIBDIR)/gcov/__pycache__
+	@$(PYCMD) -m compileall $(DEST_LIBDIR)
 	@$(INSTALL_F) LICENSE $(DEST_LICDIR)
 	@$(INSTALL_F) dist/release.txt $(DEST_LIBDIR)
 

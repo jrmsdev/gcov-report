@@ -9,6 +9,6 @@ SHRUN_DEBUG=false
 . $shrunlib
 
 export GCOV_REPORT_DEBUG=1
-run_custom_gcov_report -V
+run_custom_gcov_report -V --test-mode
 
 exit 0

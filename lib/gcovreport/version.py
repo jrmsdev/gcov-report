@@ -2,8 +2,8 @@ from os import path
 from . import config
 
 VMAJOR = 0
-VMINOR = 6
-VPATCH = 1
+VMINOR = 7
+VPATCH = 0
 
 def __string ():
     s = "{:d}.{:d}".format (VMAJOR, VMINOR)

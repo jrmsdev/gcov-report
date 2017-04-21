@@ -1,6 +1,7 @@
 import html
 from os import path
-from . import tmpl, config, version, utils, debug
+from . import tmpl
+from .. import config, version, utils, debug
 
 
 def write_html_head (out_f, title, div_class):

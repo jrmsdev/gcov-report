@@ -15,7 +15,8 @@ build:
 
 .PHONY: clean
 clean:
-	@rm -rfv gcovhtml lib/gcovreport/__pycache__ dist/release.txt
+	@rm -rfv gcovhtml dist/release.txt
+	@rm -rfv lib/gcovreport/__pycache__ lib/gcovreport/*/__pycache__
 	@$(MAKE) -C tests clean
 
 
@@ -23,13 +24,19 @@ clean:
 installdirs:
 	@mkdir -vp $(DEST_BINDIR) $(DEST_LIBDIR) $(DEST_LICDIR)
 	@mkdir -vp $(DEST_LIBDIR)/__pycache__
+	@mkdir -vp $(DEST_LIBDIR)/htmlx
+	@mkdir -vp $(DEST_LIBDIR)/htmlx/__pycache__
 
 
 .PHONY: install
 install: build installdirs dist/release.txt
 	@$(INSTALL_EXE) bin/gcov-report.py $(DEST_BINDIR)/gcov-report
 	@$(INSTALL_F) lib/gcovreport/*.py $(DEST_LIBDIR)
-	@$(INSTALL_F) lib/gcovreport/__pycache__/*.pyc $(DEST_LIBDIR)/__pycache__
+	@$(INSTALL_F) lib/gcovreport/__pycache__/*.pyc \
+		$(DEST_LIBDIR)/__pycache__
+	@$(INSTALL_F) lib/gcovreport/htmlx/*.py $(DEST_LIBDIR)/htmlx
+	@$(INSTALL_F) lib/gcovreport/htmlx/__pycache__/*.pyc \
+		$(DEST_LIBDIR)/htmlx/__pycache__
 	@$(INSTALL_F) LICENSE $(DEST_LICDIR)
 	@$(INSTALL_F) dist/release.txt $(DEST_LIBDIR)
 

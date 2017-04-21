@@ -4,8 +4,7 @@ from os import path
 from glob import glob
 from getopt import getopt, GetoptError
 
-from . import config, parser, output, version, debug
-
+from . import config, parser, version, debug, htmlx
 
 class CmdOption:
     long = None
@@ -185,6 +184,6 @@ def main ():
     debug.log ("gcovdir:", config.gcovdir)
 
     gcovdb = scan_files ()
-    output.write_index (gcovdb)
+    htmlx.output.write_index (gcovdb)
 
     return 0

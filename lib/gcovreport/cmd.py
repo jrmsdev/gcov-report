@@ -143,7 +143,7 @@ def main ():
 
         # -- debug mode enabled
         if debug.DEBUG:
-            print (cmdname, "debug mode enabled")
+            debug.log (cmdname, "debug mode enabled")
 
         # -- print version and exit
         if flags['version']:

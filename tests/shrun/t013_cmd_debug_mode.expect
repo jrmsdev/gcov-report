@@ -1,0 +1,3 @@
+shrun/t013_cmd_debug_mode
+D: gcov-report.py debug mode enabled
+gcov-report.py v0.6.1

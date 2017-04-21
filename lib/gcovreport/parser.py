@@ -2,7 +2,7 @@ import re
 import html
 from os import path
 
-from . import config, tmpl, output
+from . import config, tmpl, output, debug
 
 
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
@@ -97,8 +97,10 @@ class Gcov:
 
 
 def parse_gcov (src):
-    dst = path.join (config.htmldir, src)
+    dst = path.join (config.htmldir, path.basename (src))
     dst = dst.replace('.gcov', '.html')
+
+    debug.log ("parse_gcov:", src, dst)
 
     gcov = Gcov (src)
     gcov.attribs.update ({
@@ -113,7 +115,7 @@ def parse_gcov (src):
     # XXX: not sure why yet but it needs to start as 1 instead of 0
     gcov_lines = 1
 
-    print ("parse:", src, "->", dst)
+    print ("parse:", path.basename (src), "->", path.basename (dst))
 
     with open (src, 'r') as fh:
         for line in fh.readlines ():

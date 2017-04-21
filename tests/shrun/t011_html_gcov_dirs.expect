@@ -1,0 +1,19 @@
+shrun/t011_html_gcov_dirs
+HTML FILES:
+^#lib#t003_relpath.c.html
+index.html
+t000_main.c.html
+t001_noexec.c.html
+t002_noexec_error.c.html
+
+HTML LINKS:
+    .filename {
+    <span><a href="^%23lib%23t003_relpath.c.html">&gt;&gt;&gt;</a></span>
+    <span class="filename">../lib/t003_relpath.c</span>
+    <span><a href="t000_main.c.html">&gt;&gt;&gt;</a></span>
+    <span class="filename">t000_main.c</span>
+    <span><a href="t001_noexec.c.html">&gt;&gt;&gt;</a></span>
+    <span class="filename">t001_noexec.c</span>
+    <span><a href="t002_noexec_error.c.html">&gt;&gt;&gt;</a></span>
+    <span class="filename">t002_noexec_error.c</span>
+   href="TEST_MODE:version.project_url">gcov-report</a> vTEST_MODE:version.get_string

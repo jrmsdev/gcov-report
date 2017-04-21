@@ -19,8 +19,8 @@ test -s $gcovfile || {
     exit 1
 }
 
-shrun_debug "cp -v $gcovfile ./"
-cp -v $gcovfile ./
+echo "cp $gcovfile ./"
+cp $gcovfile ./
 
 run_gcov_report >/dev/null
 

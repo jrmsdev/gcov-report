@@ -11,7 +11,8 @@ SHRUN_DEBUG=false
 mkdir -p $TMPDIR || exit 1
 cd $TMPDIR || exit 1
 
-cp -v ../../../t???_*.c.gcov ./
+echo "cp -v ../../../t???_*.c.gcov ./"
+cp ../../../t???_*.c.gcov ./
 
 run_gcov_report >/dev/null
 

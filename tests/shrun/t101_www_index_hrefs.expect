@@ -1,7 +1,5 @@
 shrun/t101_www_index_hrefs
-../../../t000_main.c.gcov -> ./t000_main.c.gcov
-../../../t001_noexec.c.gcov -> ./t001_noexec.c.gcov
-../../../t002_noexec_error.c.gcov -> ./t002_noexec_error.c.gcov
+cp -v ../../../t???_*.c.gcov ./
     <span><a href="t000_main.c.html">&gt;&gt;&gt;</a></span>
     <span><a href="t001_noexec.c.html">&gt;&gt;&gt;</a></span>
     <span><a href="t002_noexec_error.c.html">&gt;&gt;&gt;</a></span>

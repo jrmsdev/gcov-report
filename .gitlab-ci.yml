@@ -9,6 +9,7 @@ python:
     before_script:
         - gcc --version
         - gcov --version
+        - python3 --version
     script:
         - make check GCOV=gcov
         - make check-coverage GCOV=gcov

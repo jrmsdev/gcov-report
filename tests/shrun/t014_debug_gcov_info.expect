@@ -1,0 +1,5 @@
+shrun/t014_debug_gcov_info
+D: write_gcov_html: Gcov:[('__percent_ok', 100.0
+D: write_gcov_html: Gcov:[('__percent_ok', 100.0
+D: write_gcov_html: Gcov:[('__percent_ok', 93.75
+D: write_gcov_html: Gcov:[('__percent_ok', 68.18181818181819

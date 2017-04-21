@@ -113,4 +113,4 @@ def write_index (gcovdb):
         fh.close ()
 
     write_html_tail (dst)
-    print ("index:", dst)
+    print ("index:", path.basename (dst))

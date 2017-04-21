@@ -1,0 +1,13 @@
+shrun/t012_cmd_output
+parse: ^#lib#t003_relpath.c.gcov -> ^#lib#t003_relpath.c.html
+parse: t000_main.c.gcov -> t000_main.c.html
+parse: t001_noexec.c.gcov -> t001_noexec.c.html
+parse: t002_noexec_error.c.gcov -> t002_noexec_error.c.html
+index: index.html
+HTML FILES:
+^#lib#t003_relpath.c.html
+index.html
+t000_main.c.html
+t001_noexec.c.html
+t002_noexec_error.c.html
+

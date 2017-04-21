@@ -1,0 +1,6 @@
+shrun/t102_www_gcov_relpaths
+HTML DOCS:
+index.html
+
+    <span><a href="^%23lib%23t003_relpath.c.html">&gt;&gt;&gt;</a></span>
+    <span class="filename">../lib/t003_relpath.c</span>

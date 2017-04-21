@@ -131,11 +131,11 @@ def main ():
             elif optn == '--test-mode':
                 config.test_mode = True
 
-            elif optn == '--htmldir' or optn == '-o':
-                config.htmldir = optv or config.DEFAULT_HTMLDIR
-
             elif optn == '--gcovdir' or optn == '-i':
                 config.gcovdir = optv or config.DEFAULT_GCOVDIR
+
+            elif optn == '--htmldir' or optn == '-o':
+                config.htmldir = optv or config.DEFAULT_HTMLDIR
 
         # -- test mode enabled
         if config.test_mode:
@@ -180,6 +180,10 @@ def main ():
 
     parse_argv ()
     pre_checks ()
+
+    debug.log ("htmldir:", config.htmldir)
+    debug.log ("gcovdir:", config.gcovdir)
+
     gcovdb = scan_files ()
     output.write_index (gcovdb)
 

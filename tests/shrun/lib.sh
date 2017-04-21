@@ -4,6 +4,7 @@ COVCMD="${COVERAGE_CMD}"
 INITD="$(pwd)"
 MYNAME="shrun/$(basename $0 .sh)"
 TMPDIR=${INITD}/tmpdir/${MYNAME}
+TESTDATA=${INITD}/testdata
 
 echo "$MYNAME" # ensure at least one line of output
 

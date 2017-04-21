@@ -1,0 +1,13 @@
+        -:    0:Source:../lib/t003_relpath.c
+        -:    0:Graph:t003_relpath.gcno
+        -:    0:Data:t003_relpath.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* t003_relpath.c */
+        -:    2:
+        -:    3:int
+function main called 1 returned 100% blocks executed 100%
+        1:    4:main (void)
+        -:    5:{
+        1:    6:    return (0);
+        -:    7:}

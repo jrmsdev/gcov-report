@@ -1,0 +1,13 @@
+        -:    0:Source:t000_main.c
+        -:    0:Graph:t000_main.gcno
+        -:    0:Data:t000_main.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* t000_main.c */
+        -:    2:
+        -:    3:int
+function main called 1 returned 100% blocks executed 100%
+        1:    4:main (void)
+        -:    5:{
+        1:    6:    return (0);
+        -:    7:}

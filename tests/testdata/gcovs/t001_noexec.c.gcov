@@ -1,0 +1,26 @@
+        -:    0:Source:t001_noexec.c
+        -:    0:Graph:t001_noexec.gcno
+        -:    0:Data:t001_noexec.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* t001_noexec.c */
+        -:    2:
+function check_val called 1 returned 100% blocks executed 75%
+        1:    3:static int check_val (int v)
+        -:    4:{
+        1:    5:    if (v == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:    6:        return (0);
+        -:    7:    else
+    #####:    8:        return (1);
+        -:    9:}
+        -:   10:
+        -:   11:int
+function main called 1 returned 100% blocks executed 100%
+        1:   12:main (void)
+        -:   13:{
+        1:   14:    check_val (0);
+call    0 returned 100%
+        1:   15:    return (0);
+        -:   16:}

@@ -61,33 +61,20 @@ def write_gcov_html (src, dst, gcov):
     write_html_tail (dst)
 
 
-def write_index (gcovdb):
+def write_index (gcovdb, dbstat):
 
-    gcov_count = len (gcovdb)
-    percent_total = 0
-    total_expect = 100 * gcov_count
-    total_ok = 0
-    total_status = 'ok'
     dst = path.join (config.htmldir, 'index.html')
+    gcov_count = len (gcovdb)
 
     with open (dst, 'a') as fh:
 
-        for gcov in gcovdb:
-            percent_total += gcov.attribs.get ('__percent_ok', 0)
-        total_ok = (percent_total * 100) / total_expect
-
-        if total_ok <= config.percent_error:
-            total_status = 'error'
-        elif total_ok <= config.percent_warn:
-            total_status = 'warn'
-
-        write_html_head (dst, '%.2f%% done' % total_ok, 'index')
+        write_html_head (dst, '%.2f%% done' % dbstat.total_ok, 'index')
         debug.log ("write_index:", dst)
 
         t = tmpl.TMPL_GLOBAL_STATUS()
         t.set ('filesno', gcov_count)
-        t.set ('percent', total_ok)
-        t.set ('status', total_status)
+        t.set ('percent', dbstat.total_ok)
+        t.set ('status', dbstat.total_status)
         print (t.format (), file = fh)
 
         print (tmpl.TMPL_FILE_INDEX_START().format (), file = fh)

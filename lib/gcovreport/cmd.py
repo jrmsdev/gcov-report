@@ -21,7 +21,6 @@ class CmdOption:
         self.help = help
 
 
-
 __cmdopts = [
     # options name format as in help(getops) documentation
     CmdOption (
@@ -179,6 +178,8 @@ def main ():
             db.append (parser.parse_gcov (src))
         return db
 
+    # -- main
+
     parse_argv ()
     pre_checks ()
 
@@ -186,6 +187,47 @@ def main ():
     debug.log ("gcovdir:", config.gcovdir)
 
     gcovdb = scan_files ()
-    htmlx.output.write_index (gcovdb)
+
+    # gcovdb info
+
+    def gcovdb_status (db):
+        count = len (db)
+
+        class dbstat:
+            percent_total = 0
+            total_expect = 100 * count
+            total_ok = 0
+            total_status = 'ok'
+
+            def __repr__ (self):
+                return "<DBStat[{}]>".format (str (self))
+
+            def __str__ (self):
+                return "got: {:.2f}% expect: {}% ok: {:.2f}% status: {}".format (
+                    self.percent_total,
+                    self.total_expect,
+                    self.total_ok,
+                    self.total_status,
+                )
+
+        stat = dbstat ()
+        for gcov in db:
+            stat.percent_total += gcov.attribs.get ('__percent_ok', 0)
+        stat.total_ok = (stat.percent_total * 100) / stat.total_expect
+
+        if stat.total_ok <= config.percent_error:
+            stat.total_status = 'error'
+        elif stat.total_ok <= config.percent_warn:
+            stat.total_status = 'warn'
+
+        return stat
+
+    dbstat = gcovdb_status (gcovdb)
+    htmlx.output.write_index (gcovdb, dbstat)
+
+    #~ for i in gcovdb:
+        #~ print (i)
+
+    print (str (dbstat))
 
     return 0

@@ -38,19 +38,19 @@ class TMPL_TAIL(Tmpl):
 
 
 class TMPL_CODE_NORMAL(Tmpl):
-    txt = '<span class="normal">{lineno:>4}: {content}</span>'
+    txt = '<span class="status_info">{exec_count:>4}</span> <span class="normal">{lineno:>4}: {content}</span>'
 
 
 class TMPL_CODE_NOEXEC(Tmpl):
-    txt = '<span class="noexec">{lineno:>4}: {content}</span>'
+    txt = '<span class="status_info">{exec_count:>4}</span> <span class="noexec">{lineno:>4}: {content}</span>'
 
 
 class TMPL_CODE_EXEC(Tmpl):
-    txt = '<span class="exec">{lineno:>4}: {content}</span>'
+    txt = '<span class="status_info">{exec_count:>4}</span> <span class="exec">{lineno:>4}: {content}</span>'
 
 
 class TMPL_GCOV_INFO(Tmpl):
-    txt = '<span class="status info">{content}</span>'
+    txt = '           <span class="status info">{content}</span>'
 
 
 class TMPL_GCOV_ATTRIB(Tmpl):
@@ -142,6 +142,9 @@ def html_gcov_attribs (src, gcov):
                 atclass = gcov.attribs.get ('status', atclass)
 
             elif kn == "source":
+                atclass = "info"
+
+            elif kn == "runs":
                 atclass = "info"
 
             t = TMPL_GCOV_ATTRIB()

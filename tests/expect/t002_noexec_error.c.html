@@ -67,7 +67,7 @@
 
 <span class="status_normal">gcov: t002_noexec_error.c.gcov</span><br>
 
-<span class="status_normal">runs: 1</span><br>
+<span class="status_info">runs: 1</span><br>
 
 <span class="status_info">source: t002_noexec_error.c</span><br>
 
@@ -85,39 +85,39 @@
 
 </p>
 <pre>
-<span class="normal">   1: /* t002_noexec_error.c */</span>
-<span class="normal">   2: </span>
-<span class="status info">function check_val called 1 returned 100% blocks executed 30%</span>
-<span class="exec">   3: static int check_val (int v)</span>
-<span class="normal">   4: {</span>
-<span class="exec">   5:     if (v == 0)</span>
-<span class="status info">branch  0 taken 100% (fallthrough)</span>
-<span class="status info">branch  1 taken 0%</span>
-<span class="exec">   6:         return (0);</span>
-<span class="noexec">   7:     else if (v == 1)</span>
-<span class="status info">branch  0 never executed</span>
-<span class="status info">branch  1 never executed</span>
-<span class="noexec">   8:         return (1);</span>
-<span class="noexec">   9:     else if (v == 2)</span>
-<span class="status info">branch  0 never executed</span>
-<span class="status info">branch  1 never executed</span>
-<span class="noexec">  10:         return (2);</span>
-<span class="noexec">  11:     else if (v == 3)</span>
-<span class="status info">branch  0 never executed</span>
-<span class="status info">branch  1 never executed</span>
-<span class="noexec">  12:         return (3);</span>
-<span class="normal">  13:     else</span>
-<span class="noexec">  14:         return (9);</span>
-<span class="normal">  15: }</span>
-<span class="normal">  16: </span>
-<span class="normal">  17: int</span>
-<span class="status info">function main called 1 returned 100% blocks executed 100%</span>
-<span class="exec">  18: main (void)</span>
-<span class="normal">  19: {</span>
-<span class="exec">  20:     check_val (0);</span>
-<span class="status info">call    0 returned 100%</span>
-<span class="exec">  21:     return (0);</span>
-<span class="normal">  22: }</span>
+<span class="status_info">   -</span> <span class="normal">   1: /* t002_noexec_error.c */</span>
+<span class="status_info">   -</span> <span class="normal">   2: </span>
+           <span class="status info">function check_val called 1 returned 100% blocks executed 30%</span>
+<span class="status_info">   1</span> <span class="exec">   3: static int check_val (int v)</span>
+<span class="status_info">   -</span> <span class="normal">   4: {</span>
+<span class="status_info">   1</span> <span class="exec">   5:     if (v == 0)</span>
+           <span class="status info">branch  0 taken 100% (fallthrough)</span>
+           <span class="status info">branch  1 taken 0%</span>
+<span class="status_info">   1</span> <span class="exec">   6:         return (0);</span>
+<span class="status_info">   0</span> <span class="noexec">   7:     else if (v == 1)</span>
+           <span class="status info">branch  0 never executed</span>
+           <span class="status info">branch  1 never executed</span>
+<span class="status_info">   0</span> <span class="noexec">   8:         return (1);</span>
+<span class="status_info">   0</span> <span class="noexec">   9:     else if (v == 2)</span>
+           <span class="status info">branch  0 never executed</span>
+           <span class="status info">branch  1 never executed</span>
+<span class="status_info">   0</span> <span class="noexec">  10:         return (2);</span>
+<span class="status_info">   0</span> <span class="noexec">  11:     else if (v == 3)</span>
+           <span class="status info">branch  0 never executed</span>
+           <span class="status info">branch  1 never executed</span>
+<span class="status_info">   0</span> <span class="noexec">  12:         return (3);</span>
+<span class="status_info">   -</span> <span class="normal">  13:     else</span>
+<span class="status_info">   0</span> <span class="noexec">  14:         return (9);</span>
+<span class="status_info">   -</span> <span class="normal">  15: }</span>
+<span class="status_info">   -</span> <span class="normal">  16: </span>
+<span class="status_info">   -</span> <span class="normal">  17: int</span>
+           <span class="status info">function main called 1 returned 100% blocks executed 100%</span>
+<span class="status_info">   1</span> <span class="exec">  18: main (void)</span>
+<span class="status_info">   -</span> <span class="normal">  19: {</span>
+<span class="status_info">   1</span> <span class="exec">  20:     check_val (0);</span>
+           <span class="status info">call    0 returned 100%</span>
+<span class="status_info">   1</span> <span class="exec">  21:     return (0);</span>
+<span class="status_info">   -</span> <span class="normal">  22: }</span>
 </pre>
 </div>
 <footer>

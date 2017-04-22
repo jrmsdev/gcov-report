@@ -5,11 +5,11 @@ from os import path
 from .. import config, debug
 from ..htmlx import  tmpl, output
 
-re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
-re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')
-re_gcov_normal = re.compile ('^\s*-:\s*(\d*):(.*)$')
-re_gcov_noexec = re.compile ('^\s*#####:\s*(\d*):(.*)$')
-re_gcov_exec = re.compile ('^\s*\d*:\s*(\d*):(.*)$')
+re_gcov_attr_source = re.compile ('^\s+-:\s+0:Source:(.+)$')
+re_gcov_attr_runs = re.compile ('^\s+-:\s+0:Runs:(\d+)$')
+re_gcov_normal = re.compile ('^\s+-:\s+(\d+):(.*)$')
+re_gcov_noexec = re.compile ('^\s+#####:\s+(\d+):(.+)$')
+re_gcov_exec = re.compile ('^\s+(\d+):\s+(\d+):(.+)$')
 re_gcov_info = re.compile ('^(\w+\s.*)$')
 
 
@@ -19,11 +19,13 @@ class GcovLine:
     class data:
         lineno = None
         content = None
+        exec_count = '0'
 
-    def __init__ (self, tmplclass, content, lineno):
+    def __init__ (self, tmplclass, content, lineno, exec_count):
         self.tmpl = tmplclass()
         self.tmpl.set ('lineno', lineno)
         self.tmpl.set ('content', content)
+        self.tmpl.set ('exec_count', exec_count)
 
     def format (self):
         return self.tmpl.format ()
@@ -82,8 +84,8 @@ class Gcov:
             self.attribs.get ('status.info'),
         )
 
-    def newline (self, tmpl, content, lineno = None):
-        self.lines.append (GcovLine (tmpl, content, lineno))
+    def newline (self, tmpl, content, lineno = None, exec_count = '0'):
+        self.lines.append (GcovLine (tmpl, content, lineno, exec_count))
 
     def status (self):
         lines = self.attribs.get ('source.lines', 0)
@@ -149,7 +151,7 @@ def parse_gcov (src):
                     gcov.attribs['source.lines'] += 1
                     gcov.attribs['source.lines.normal'] += 1
                     gcov.newline (tmpl.TMPL_CODE_NORMAL,
-                            html.escape (m.group (2)), idx)
+                            html.escape (m.group (2)), idx, "-")
                 continue
 
             m = re_gcov_noexec.match (line)
@@ -165,9 +167,10 @@ def parse_gcov (src):
             if m:
                 gcov.attribs['source.lines'] += 1
                 gcov.attribs['source.lines.exec'] += 1
-                idx = m.group (1)
+                exec_count = m.group (1)
+                idx = m.group (2)
                 gcov.newline (tmpl.TMPL_CODE_EXEC,
-                        html.escape (m.group (2)), idx)
+                        html.escape (m.group (3)), idx, exec_count)
                 continue
 
             m = re_gcov_info.match (line)

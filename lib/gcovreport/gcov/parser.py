@@ -151,7 +151,7 @@ def parse_gcov (src):
                     gcov.attribs['source.lines'] += 1
                     gcov.attribs['source.lines.normal'] += 1
                     gcov.newline (tmpl.TMPL_CODE_NORMAL,
-                            html.escape (m.group (2)), idx, "-")
+                            html.escape (m.group (2)), idx, " ")
                 continue
 
             m = re_gcov_noexec.match (line)

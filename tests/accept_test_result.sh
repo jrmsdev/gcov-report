@@ -14,9 +14,6 @@ expect_f=""
 if test "x$ttype" = "xshrun"; then
     test_f=$(ls shrun/${tid}_*.test 2>/dev/null | head -n1)
     expect_f=$(ls shrun/${tid}_*.expect 2>/dev/null | head -n1)
-elif test "x$ttype" = "xgcovhtml"; then
-    test_f=$(ls gcovhtml/${tid}_*.html 2>/dev/null | head -n1)
-    expect_f=$(ls expect/${tid}_*.html 2>/dev/null | head -n1)
 fi
 
 (test "x" != "x$test_f" && test "x" != "x$expect_f") || {

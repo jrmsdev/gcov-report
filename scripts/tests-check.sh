@@ -40,20 +40,21 @@ __run_diff() {
 
 __check_diff() {
     local dfile=$1
+    local tname=$(basename $dfile .diff)
     if test -s ${dfile}; then
         cat $dfile
-        __fail ${dfile}
+        __fail ${tname}
         __report
         exit 9
     fi
-    echo "[ OK ] ${dfile}"
+    echo "[ OK ] ${tname}"
     return 0
 }
 
 __shrun_exec() {
     for s in ${shrun_dir}/t???_*.sh; do
         n=`basename $s .sh`
-        shrun_test=${shrun_dir}/${n}.test
+        shrun_test=${tmpdir}/${n}.test
         shrun_exe=${shrun_dir}/${n}.sh
         if test -x $shrun_exe; then
             COVERAGE_CMD="${COVCMD}" ./$shrun_exe >$shrun_test 2>&1
@@ -100,15 +101,15 @@ __shrun_exec
 
 run_list=${tmpdir}/run_list.$$
 
-ls ${shrun_dir}/t???_*.sh 2>/dev/null | sed 's/\.sh//' >$run_list
+(cd ${shrun_dir} && ls t???_*.sh 2>/dev/null) | sed 's/\.sh//' >$run_list
 
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}
 
 for n in $(cat ${run_list}); do
-    shrun_diff=${n}.diff
-    shrun_test=${n}.test
-    shrun_expect=${n}.expect
+    shrun_diff=${tmpdir}/${n}.diff
+    shrun_test=${tmpdir}/${n}.test
+    shrun_expect=${shrun_dir}/${n}.expect
     if test -s $shrun_test; then
         __run_check $shrun_expect $shrun_test $shrun_diff
     else

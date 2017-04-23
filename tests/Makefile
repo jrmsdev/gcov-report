@@ -21,7 +21,7 @@ check-coverage:
 
 .PHONY: clean
 clean:
-	@rm -vf .coverage shrun/*.diff shrun/*.test
+	@rm -vf .coverage
 	@rm -vrf htmlcov tmpdir
 
 

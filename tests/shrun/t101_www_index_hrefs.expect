@@ -1,6 +1,8 @@
 shrun/t101_www_index_hrefs
 cp -v ../../../t???_*.c.gcov ./
+    <span><a href="^%23lib%23t003_relpath.c.html">&gt;&gt;&gt;</a></span>
     <span><a href="t000_main.c.html">&gt;&gt;&gt;</a></span>
     <span><a href="t001_noexec.c.html">&gt;&gt;&gt;</a></span>
     <span><a href="t002_noexec_error.c.html">&gt;&gt;&gt;</a></span>
+    <span><a href="t003_main.c.html">&gt;&gt;&gt;</a></span>
    href="TEST_MODE:version.project_url">gcov-report</a> vTEST_MODE:version.get_string

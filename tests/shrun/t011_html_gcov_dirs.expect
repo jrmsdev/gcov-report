@@ -5,6 +5,7 @@ index.html
 t000_main.c.html
 t001_noexec.c.html
 t002_noexec_error.c.html
+t003_main.c.html
 
 HTML LINKS:
     .filename {
@@ -16,4 +17,6 @@ HTML LINKS:
     <span class="filename">t001_noexec.c</span>
     <span><a href="t002_noexec_error.c.html">&gt;&gt;&gt;</a></span>
     <span class="filename">t002_noexec_error.c</span>
+    <span><a href="t003_main.c.html">&gt;&gt;&gt;</a></span>
+    <span class="filename">t003_main.c</span>
    href="TEST_MODE:version.project_url">gcov-report</a> vTEST_MODE:version.get_string

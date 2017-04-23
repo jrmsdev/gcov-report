@@ -9,6 +9,6 @@ SHRUN_DEBUG=false
 . $shrunlib
 
 mkdir -p $TMPDIR
-run_gcov_report
+run_custom_gcov_report --test-mode --gcovdir=$TMPDIR --htmldir=$TMPDIR
 rm -rf $TMPDIR
 exit 0

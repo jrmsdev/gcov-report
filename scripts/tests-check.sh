@@ -8,9 +8,8 @@ if test "x${COVCMD}" != "x"; then
     COVCMD="${COVCMD} --append"
 fi
 
-test_dir=gcovhtml
-expect_dir=expect
 shrun_dir=shrun
+tmpdir=tmpdir
 myname=`basename $0`
 
 checks_run=0
@@ -51,15 +50,6 @@ __check_diff() {
     return 0
 }
 
-__check_html_files_list() {
-    local test_flist=${test_dir}/flist
-    local expect_flist=${test_dir}/flist.expect
-    (cd $test_dir && ls *.html 2>/dev/null | sort) >$test_flist
-    (cd $expect_dir && ls *.html 2>/dev/null | sort) >$expect_flist
-    __run_diff $expect_flist $test_flist >${test_flist}.diff 2>${test_flist}.diff
-    __check_diff ${test_flist}.diff
-}
-
 __shrun_exec() {
     for s in ${shrun_dir}/t???_*.sh; do
         n=`basename $s .sh`
@@ -90,14 +80,8 @@ __run_check() {
     __check_diff $run_diff
 }
 
-test -d ${test_dir} || {
-    __error "${test_dir} dir not found"
-    exit 1
-}
-test -d ${expect_dir} || {
-    __error "${expect_dir} dir not found"
-    exit 2
-}
+# -- pre checks
+
 test -d ${shrun_dir} || {
     __error "${shrun_dir} dir not found"
     exit 2
@@ -108,38 +92,27 @@ which $DIFF_CMD >/dev/null 2>/dev/null || {
     exit 3
 }
 
+# -- run tests scripts
+
 __shrun_exec
-__check_html_files_list
 
 # -- check all diffs
 
-run_list=${test_dir}/run_list.$$
+run_list=${tmpdir}/run_list.$$
 
-for t in $(ls t???_*.c 2>/dev/null); do
-    echo "${test_dir}/$(basename $t .c)" >>$run_list
-done
-
-ls ${shrun_dir}/t???_*.sh 2>/dev/null | sed 's/\.sh//' >>$run_list
+ls ${shrun_dir}/t???_*.sh 2>/dev/null | sed 's/\.sh//' >$run_list
 
 sort -u ${run_list} >${run_list}.sort
 mv -f ${run_list}.sort ${run_list}
 
 for n in $(cat ${run_list}); do
-    run_diff=${n}.c.diff
-    run_test=${n}.c.html
-    run_expect="${expect_dir}/$(basename ${n}).c.html"
     shrun_diff=${n}.diff
     shrun_test=${n}.test
     shrun_expect=${n}.expect
-    if test -s $run_test; then
-        #~ echo "RUN"
-        __run_check $run_expect $run_test $run_diff
-    fi
-    if echo $n | grep -E "^${shrun_dir}" >/dev/null 2>/dev/null; then
-        if test -s $shrun_test; then
-            #~ echo "SHRUN"
-            __run_check $shrun_expect $shrun_test $shrun_diff
-        fi
+    if test -s $shrun_test; then
+        __run_check $shrun_expect $shrun_test $shrun_diff
+    else
+        __fail "${shrun_test}: not found or empty"
     fi
 done
 

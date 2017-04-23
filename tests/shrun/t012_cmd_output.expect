@@ -6,13 +6,15 @@ source file                                     lines  noexec status     done
 ../lib/t003_relpath.c                            7      0      ok     100.00%
 t000_main.c                                      7      0      ok     100.00%
 t001_noexec.c                                    16     1      warn    93.75%
-t002_noexec_error.c                              22     7      error   68.18%
+t002_noexec_error.c                              32     17     error   46.88%
+t003_main.c                                      7      0      ok     100.00%
 
-                                                               warn    90.48%
+                                                               warn    88.12%
 HTML FILES:
 ^#lib#t003_relpath.c.html
 index.html
 t000_main.c.html
 t001_noexec.c.html
 t002_noexec_error.c.html
+t003_main.c.html
 

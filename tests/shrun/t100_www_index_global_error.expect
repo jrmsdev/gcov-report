@@ -1,3 +1,2 @@
 shrun/t100_www_index_global_error
-cp ../../../t002_noexec_error.c.gcov ./
-global status: <span class="status_error">68.18% done</span><br>
+global status: <span class="status_error">46.88% done</span><br>

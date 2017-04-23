@@ -1,9 +1,9 @@
-        -:    0:Source:../lib/t003_relpath.c
-        -:    0:Graph:t003_relpath.gcno
-        -:    0:Data:t003_relpath.gcda
+        -:    0:Source:t003_main.c
+        -:    0:Graph:t003_main.gcno
+        -:    0:Data:t003_main.gcda
         -:    0:Runs:1
         -:    0:Programs:1
-        -:    1:/* ../lib/t003_relpath.c */
+        -:    1:/* t003_main.c */
         -:    2:
         -:    3:int
 function main called 1 returned 100% blocks executed 100%

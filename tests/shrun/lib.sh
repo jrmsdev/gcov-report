@@ -18,6 +18,11 @@ test -d ./tmpdir || {
     exit 1
 }
 
+test -d ./testdata || {
+    echo "ERR ${MYNAME}: testdata dir not found"
+    exit 1
+}
+
 shrun_debug() {
     $SHRUN_DEBUG && echo "D: $@" >&2
 }
@@ -36,5 +41,5 @@ run_custom_gcov_report() {
 }
 
 run_gcov_report() {
-    run_custom_gcov_report --test-mode  --htmldir=$TMPDIR --gcovdir=$TMPDIR $@
+    run_custom_gcov_report --test-mode  --htmldir=$TMPDIR --gcovdir=${TESTDATA}/gcovs $@
 }

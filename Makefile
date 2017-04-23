@@ -16,7 +16,7 @@ build:
 
 .PHONY: clean
 clean:
-	@rm -rfv gcovhtml dist/release.txt
+	@rm -rfv dist/release.txt
 	@rm -rfv lib/gcovreport/__pycache__ lib/gcovreport/*/__pycache__
 	@$(MAKE) -C tests clean
 
@@ -66,7 +66,7 @@ distclean: clean
 	@rm -vrf dist
 
 
-dist/release.txt:
+dist/release.txt: scripts/mk-releasetxt.sh
 	@mkdir -vp dist
 	@./scripts/mk-releasetxt.sh
 

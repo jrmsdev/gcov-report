@@ -9,10 +9,6 @@ SHRUN_DEBUG=false
 . $shrunlib
 
 mkdir -p $TMPDIR || exit 1
-cd $TMPDIR || exit 1
-
-echo "cp -v ../../../t???_*.c.gcov ./"
-cp ../../../t???_*.c.gcov ./
 
 run_gcov_report >/dev/null
 
@@ -23,6 +19,5 @@ else
     echo "${index_html}: file not found"
 fi
 
-cd $INITD
 rm -rf $TMPDIR
 exit 0

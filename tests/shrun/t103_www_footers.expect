@@ -1,0 +1,11 @@
+shrun/t103_www_footers
+<footer>
+index.html: TEST_MODE:utils.asctime<br>
+<a target="_blank"
+   href="TEST_MODE:version.project_url">gcov-report</a> vTEST_MODE:version.get_string
+</footer>
+<footer>
+t000_main.c.html: TEST_MODE:utils.asctime<br>
+<a target="_blank"
+   href="TEST_MODE:version.project_url">gcov-report</a> vTEST_MODE:version.get_string
+</footer>

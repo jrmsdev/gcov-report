@@ -13,13 +13,9 @@ mkdir -p $TMPDIR || exit 1
 #~ export GCOV_REPORT_DEBUG=1
 run_gcov_report >/dev/null
 
-echo "HTML DOCS:"
-(cd ${TMPDIR} && ls *.html)
-echo
-
-index_html=${TMPDIR}/index.html
 if test -s $index_html; then
-    cat $index_html | grep -F 't003_relpath.c'
+    cat ${TMPDIR}/index.html | grep -A4 -F '<footer'
+    cat ${TMPDIR}/t000_main.c.html | grep -A4 -F '<footer'
 else
     echo "${index_html}: file not found"
 fi

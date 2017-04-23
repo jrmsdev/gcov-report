@@ -12,7 +12,7 @@ test_f=""
 expect_f=""
 
 if test "x$ttype" = "xshrun"; then
-    test_f=$(ls shrun/${tid}_*.test 2>/dev/null | head -n1)
+    test_f=$(ls tmpdir/${tid}_*.test 2>/dev/null | head -n1)
     expect_f=$(ls shrun/${tid}_*.expect 2>/dev/null | head -n1)
 fi
 
